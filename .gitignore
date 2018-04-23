@@ -1,0 +1,9 @@
+*.o
+*.a
+*.gc*
+*~
+#*#
+vgcore.*
+42sh
+segfault
+memo.txt
