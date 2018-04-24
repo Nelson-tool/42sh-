@@ -9,7 +9,7 @@
 #include <stdbool.h>
 #include "42sh.h"
 
-bool error_semicolon(UNUSED node_t *left, UNUSED node_t *right)
+bool no_error_operator(UNUSED node_t *left, UNUSED node_t *right)
 {
 	return (false);
 }

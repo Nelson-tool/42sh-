@@ -12,11 +12,26 @@
 #include "my.h"
 #include "42sh.h"
 
+void print_error_signal(int exit_status)
+{
+	for (int i = 0 ; ERRORS_SIGNAL[i].signal ; ++i) {
+		if (exit_status == ERRORS_SIGNAL[i].signal) {
+			exit_status = ERRORS_SIGNAL[i].error_value;
+			my_putstr(ERRORS_SIGNAL[i].mssg);
+			break;
+		}
+	}
+}
+
 void my_exec(shell_t *mysh, char *path, char **command)
 {
-	pid_t child_pid = -1;
+	pid_t child_pid;
 
 	child_pid = fork();
+	if (child_pid == -1) {
+		perror("fork");
+		return;
+	}
 	if (child_pid == 0) {
 		execve(path, command, mysh->env);
 		perror("execve");
@@ -24,11 +39,5 @@ void my_exec(shell_t *mysh, char *path, char **command)
 	}
 	waitpid(child_pid, &mysh->exit_status, 0);
 	mysh->exit_status %= 128;
-	for (int i = 0 ; ERRORS_SIGNAL[i].signal ; ++i) {
-		if (mysh->exit_status == ERRORS_SIGNAL[i].signal) {
-			mysh->exit_status = ERRORS_SIGNAL[i].error_value;
-			my_putstr(ERRORS_SIGNAL[i].mssg);
-			break;
-		}
-	}
+	print_error_signal(mysh->exit_status);
 }

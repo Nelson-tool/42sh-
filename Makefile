@@ -27,6 +27,8 @@ SRC_COM		=	$(COM_DIR)/tree.c			\
 			$(COM_DIR)/parser/my_exec.c
 
 SRC_OP		=	$(OP_DIR)/semicolon.c			\
+			$(OP_DIR)/and.c				\
+			$(OP_DIR)/or.c				\
 			$(OP_DIR)/pipe.c			\
 			$(OP_DIR)/right_dbl_redirection.c	\
 			$(OP_DIR)/right_redirection.c		\

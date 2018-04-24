@@ -27,8 +27,14 @@ typedef struct node node_t;
 
 /* FUNCTIONS */
 //semicolon.c
-bool error_semicolon(node_t *left, node_t *right);
+bool no_error_operator(node_t *left, node_t *right);
 bool exec_semicolon(shell_t *mysh, node_t *left, node_t *right);
+
+//and.c
+bool exec_and(shell_t *mysh, node_t *left, node_t *right);
+
+//or.c
+bool exec_or(shell_t *mysh, node_t *left, node_t *right);
 
 //pipe.c
 bool error_pipe(node_t *left, node_t *right);
@@ -50,28 +56,42 @@ bool exec_l_redir(shell_t *mysh, node_t *left, node_t *right);
 
 
 /* CONSTANTS */
-static const char * const HIGH_PRIORITY[] = {
+static const char * const TK_SEMICOLON[] = {
 	";",
 	NULL
 };
 
-static const char * const LOW_PRIORITY[] = {
+static const char * const TK_AND_OR[] = {
+	"&&",
+	"||",
+	NULL
+};
+
+static const char * const TK_PIPE_RIGHT_REDIR[] = {
 	"|",
 	">>",
 	">",
+	NULL
+};
+
+static const char * const TK_LEFT_REDIR[] = {
 	"<<",
 	"<",
 	NULL
 };
 
 static const char * const * const TOKENS_PRIOR[] = {
-	HIGH_PRIORITY,
-	LOW_PRIORITY,
+	TK_SEMICOLON,
+	TK_AND_OR,
+	TK_PIPE_RIGHT_REDIR,
+	TK_LEFT_REDIR,
 	NULL
 };
 
 static const char * const TOKENS[] = {
 	";",
+	"&&",
+	"||",
 	"|",
 	">>",
 	">",
@@ -82,7 +102,9 @@ static const char * const TOKENS[] = {
 
 static bool (*const ERROR_TOKEN[])
 (node_t *left, node_t *right) = {
-	error_semicolon,
+	no_error_operator,
+	no_error_operator,
+	no_error_operator,
 	error_pipe,
 	error_r_redir,
 	error_r_redir,
@@ -95,6 +117,8 @@ static const int REG_RIGHTS = S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR | S_IWOTH;
 static bool (*const TOKENS_EXEC[])
 (shell_t *mysh, node_t *left, node_t *right) = {
 	exec_semicolon,
+	exec_and,
+	exec_or,
 	exec_pipe,
 	exec_r_dbl_redir,
 	exec_r_redir,
