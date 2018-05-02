@@ -5,6 +5,7 @@
 ** Quits the shell.
 */
 
+#include <stdlib.h>
 #include "my.h"
 #include "42sh.h"
 
@@ -17,8 +18,8 @@ void builtin_exit(shell_t *mysh, char **command)
 		return;
 	}
 	else if (len == 2) {
-		mysh->exit_status = my_getnbr(command[1]) % 256;
+		mysh->exit_status = atoi(command[1]) % 256;
 	}
 	mysh->stop = true;
-	my_putstr("exit\n");
+	puts("exit");
 }

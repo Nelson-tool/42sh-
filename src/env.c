@@ -6,13 +6,14 @@
 */
 
 #include <stdlib.h>
+#include <string.h>
 #include "my.h"
 #include "42sh.h"
 
 static char **env_cpy(char **cpy, char **envp)
 {
 	for (int i = 0 ; envp[i] ; ++i) {
-		cpy[i] = my_strdup(envp[i]);
+		cpy[i] = strdup(envp[i]);
 		if (cpy[i] == NULL) {
 			ERROR_MALLOC;
 			while (i--)
@@ -42,10 +43,10 @@ char **env_dup(char **envp)
 
 int get_pos_env(char **env, char *name)
 {
-	int len = my_strlen(name);
+	int len = strlen(name);
 
 	for (int i = 0 ; env[i] ; ++i) {
-		if (my_strncmp(env[i], name, len) == 0 && env[i][len] == '=')
+		if (strncmp(env[i], name, len) == 0 && env[i][len] == '=')
 			return (i);
 	}
 	return (-1);

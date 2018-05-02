@@ -6,13 +6,14 @@
 */
 
 #include <stdlib.h>
+#include <string.h>
 #include "my.h"
 #include "42sh.h"
 
 static token_t get_op(char *str)
 {
 	for (int i = 0 ; TOKENS[i] ; ++i) {
-		if (my_strncmp(str, TOKENS[i], my_strlen(TOKENS[i])) == 0)
+		if (strncmp(str, TOKENS[i], strlen(TOKENS[i])) == 0)
 			return (i);
 	}
 	return (EXPR);
@@ -24,7 +25,7 @@ static char *move_past_token(char **str, const char *token)
 	char *left_expr = *str;
 
 	if (pos == -1)
-		pos = my_strlen(*str);
+		pos = strlen(*str);
 	*str += pos;
 	return (left_expr);
 }
@@ -38,7 +39,7 @@ bool split_node(node_t *node, const char *token, const char * const *tokens)
 	node->left->str = move_past_token(&copy, token);
 	node->op = get_op(copy);
 	copy[0] = '\0';
-	copy += my_strlen(TOKENS[node->op]);
+	copy += strlen(TOKENS[node->op]);
 	node->right->str = copy;
 	token = get_token(node->right->str, tokens);
 	if (token != NULL)

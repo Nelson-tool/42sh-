@@ -17,7 +17,7 @@ void print_error_signal(int exit_status)
 	for (int i = 0 ; ERRORS_SIGNAL[i].signal ; ++i) {
 		if (exit_status == ERRORS_SIGNAL[i].signal) {
 			exit_status = ERRORS_SIGNAL[i].error_value;
-			my_putstr(ERRORS_SIGNAL[i].mssg);
+			printf(ERRORS_SIGNAL[i].mssg);
 			break;
 		}
 	}
