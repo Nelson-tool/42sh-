@@ -8,7 +8,7 @@
 #ifndef COMMAND_H
 #define COMMAND_H
 
-/* INCLUDE */
+/* INCLUDES */
 #include <fcntl.h>
 #include "operators.h"
 
