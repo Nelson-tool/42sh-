@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 #include <sys/stat.h>
 #include "my.h"
 #include "42sh.h"
@@ -33,7 +34,7 @@ static bool access_direct(shell_t *mysh, char *name, char **path)
 		mysh->exit_status = 1;
 		return (false);
 	}
-	*path = my_strdup(name);
+	*path = strdup(name);
 	if (*path == NULL)
 		return (false);
 	return (true);
@@ -55,16 +56,16 @@ static char **get_paths(char **env)
 static bool access_path(char **env, char *name, char **path)
 {
 	char **bin_paths = get_paths(env);
-	int len_name = my_strlen(name);
+	int len_name = strlen(name);
 	int len = 0;
 	bool found = false;
 
 	if (bin_paths == NULL)
 		return (false);
 	for (int i = 0 ; bin_paths[i] ; ++i) {
-		len = my_strlen(bin_paths[i]) + len_name + 2;
+		len = strlen(bin_paths[i]) + len_name + 2;
 		*path = malloc(sizeof(char) * len);
-		my_sprintf(*path, "%s/%s", bin_paths[i], name);
+		sprintf(*path, "%s/%s", bin_paths[i], name);
 		if (access(*path, X_OK) == 0) {
 			found = true;
 			break;

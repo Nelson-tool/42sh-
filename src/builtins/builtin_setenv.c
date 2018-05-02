@@ -6,6 +6,7 @@
 */
 
 #include <stdlib.h>
+#include <string.h>
 #include "my.h"
 #include "42sh.h"
 
@@ -29,19 +30,19 @@ static bool error_setenv(char **command, int nb_arg)
 static char *create_env_var(char *name, char *value)
 {
 	char *var = NULL;
-	int size = my_strlen(name) + 2;
+	int size = strlen(name) + 2;
 
 	if (value != NULL)
-		size += my_strlen(value);
+		size += strlen(value);
 	var = malloc(sizeof(char) * size);
 	if (var == NULL) {
 		ERROR_MALLOC;
 		return (NULL);
 	}
 	if (value != NULL)
-		my_sprintf(var, "%s=%s", name, value);
+		sprintf(var, "%s=%s", name, value);
 	else
-		my_sprintf(var, "%s=", name);
+		sprintf(var, "%s=", name);
 	return (var);
 }
 
