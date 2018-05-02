@@ -6,6 +6,7 @@
 */
 
 #include <stdlib.h>
+#include <string.h>
 #include "my.h"
 #include "42sh.h"
 
@@ -20,12 +21,12 @@ static bool error_unsetenv(char **command)
 
 static int del_env_var(char **env, char *name, int nb_vars)
 {
-	int len = my_strlen(name);
+	int len = strlen(name);
 
 	for (int i = 0 ; i < nb_vars ; ++i) {
 		if (env[i] == NULL)
 			continue;
-		if (my_strncmp(env[i], name, len) == 0 && env[i][len] == '=') {
+		if (strncmp(env[i], name, len) == 0 && env[i][len] == '=') {
 			free(env[i]);
 			env[i] = NULL;
 			return (1);

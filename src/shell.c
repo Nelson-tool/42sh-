@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 #include <linux/limits.h>
 #include "my.h"
 #include "42sh.h"
@@ -14,11 +15,11 @@
 void display_prompt(void)
 {
 	char path[PATH_MAX + 1] = "";
-	int offset = 0;
+	char *dir;
 
 	getcwd(path, PATH_MAX);
-	offset = my_rindex('/', path);
-	my_printf("(42sh %s)$ ", path + offset + 1);
+	dir = rindex(path, '/');
+	dprintf(STDOUT_FILENO, "(42sh %s)$ ", (dir == path) ? dir : dir + 1);
 }
 
 void shell(shell_t *mysh)

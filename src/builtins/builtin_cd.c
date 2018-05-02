@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 #include <linux/limits.h>
 #include <sys/stat.h>
 #include "my.h"
@@ -74,7 +75,7 @@ void builtin_cd(shell_t *mysh, char **command)
 	getcwd(old_pwd, PATH_MAX);
 	if (command[1] == NULL)
 		success = cd_home(mysh);
-	else if (my_strcmp(command[1], "-") == 0)
+	else if (strcmp(command[1], "-") == 0)
 		success = cd_back(mysh->env);
 	else if (error_cd(command))
 		success = false;
