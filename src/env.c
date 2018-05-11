@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "my.h"
-#include "42sh.h"
+#include "shell.h"
 
 static char **env_cpy(char **cpy, char **envp)
 {

@@ -10,7 +10,7 @@
 #include <string.h>
 #include <sys/stat.h>
 #include "my.h"
-#include "42sh.h"
+#include "shell.h"
 
 static bool error_access(char *name)
 {

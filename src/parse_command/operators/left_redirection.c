@@ -9,7 +9,7 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include "my.h"
-#include "42sh.h"
+#include "shell.h"
 
 bool error_l_redir(node_t *left, node_t *right)
 {

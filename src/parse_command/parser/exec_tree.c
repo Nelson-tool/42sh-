@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "my.h"
-#include "42sh.h"
+#include "shell.h"
 
 bool exec_tree(shell_t *mysh, node_t *tree)
 {

@@ -7,7 +7,7 @@
 
 #include <stdlib.h>
 #include "my.h"
-#include "42sh.h"
+#include "shell.h"
 
 node_t *create_node(void)
 {

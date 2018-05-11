@@ -6,7 +6,7 @@
 */
 
 #include "my.h"
-#include "42sh.h"
+#include "shell.h"
 
 void builtin_env(shell_t *mysh, UNUSED char **command)
 {

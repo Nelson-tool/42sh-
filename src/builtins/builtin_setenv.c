@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "my.h"
-#include "42sh.h"
+#include "shell.h"
 
 static bool error_setenv(char **command, int nb_arg)
 {

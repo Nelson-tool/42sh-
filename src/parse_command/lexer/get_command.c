@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "my.h"
-#include "42sh.h"
+#include "shell.h"
 
 node_t *get_command(shell_t *mysh)
 {

@@ -7,7 +7,7 @@
 
 #include <stdlib.h>
 #include <stdbool.h>
-#include "42sh.h"
+#include "shell.h"
 
 bool no_error_operator(UNUSED node_t *left, UNUSED node_t *right)
 {

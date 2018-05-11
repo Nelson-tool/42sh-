@@ -10,7 +10,7 @@
 #include <string.h>
 #include <sys/wait.h>
 #include "my.h"
-#include "42sh.h"
+#include "shell.h"
 
 void print_error_signal(int exit_status)
 {

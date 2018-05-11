@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "my.h"
-#include "42sh.h"
+#include "shell.h"
 
 const char *get_token(const char *expr, const char * const *tokens)
 {
@@ -16,7 +16,7 @@ const char *get_token(const char *expr, const char * const *tokens)
 
 	for (int i = 0 ; expr[i] ; ++i) {
 		for (int j = 0 ; tokens[j] ; ++j) {
-			len_token = my_strlen(tokens[j]);
+			len_token = strlen(tokens[j]);
 			if (strncmp(expr + i, tokens[j], len_token) == 0)
 				return (tokens[j]);
 		}

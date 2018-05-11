@@ -7,7 +7,7 @@
 
 #include <stdlib.h>
 #include <stdbool.h>
-#include "42sh.h"
+#include "shell.h"
 
 bool exec_or(shell_t *mysh, node_t *left, node_t *right)
 {

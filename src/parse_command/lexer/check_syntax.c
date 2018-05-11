@@ -9,7 +9,7 @@
 #include <stdarg.h>
 #include <stdbool.h>
 #include "my.h"
-#include "42sh.h"
+#include "shell.h"
 
 bool is_null_command(node_t *node)
 {
@@ -33,17 +33,11 @@ bool is_op(token_t op, int nb, ...)
 
 bool check_syntax(node_t *node)
 {
-	if (node->left) {
-		if (!check_syntax(node->left))
+	if (node->left && !check_syntax(node->left))
 			return (false);
-	}
-	if (node->right) {
-		if (!check_syntax(node->right))
+	if (node->right && !check_syntax(node->right))
 			return (false);
-	}
-	if (node->op != EXPR) {
-		if (ERROR_TOKEN[node->op](node->left, node->right))
+	if (node->op != EXPR && ERROR_TOKEN[node->op](node->left, node->right))
 			return (false);
-	}
 	return (true);
 }

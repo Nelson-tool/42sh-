@@ -7,7 +7,7 @@
 
 #include <stdlib.h>
 #include "my.h"
-#include "42sh.h"
+#include "shell.h"
 
 void builtin_exit(shell_t *mysh, char **command)
 {

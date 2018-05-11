@@ -10,7 +10,7 @@
 #include <wait.h>
 #include <stdbool.h>
 #include "my.h"
-#include "42sh.h"
+#include "shell.h"
 
 static void get_input_to_redirect(const char *stop, int fd)
 {

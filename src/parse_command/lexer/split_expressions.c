@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "my.h"
-#include "42sh.h"
+#include "shell.h"
 
 bool split_expressions(node_t *node)
 {

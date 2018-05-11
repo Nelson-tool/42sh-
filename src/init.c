@@ -8,7 +8,7 @@
 #include <unistd.h>
 #include <wait.h>
 #include "my.h"
-#include "42sh.h"
+#include "shell.h"
 
 void sigint_hdl(UNUSED int signum)
 {

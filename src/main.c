@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "my.h"
-#include "42sh.h"
+#include "shell.h"
 
 int main(UNUSED int ac, UNUSED char **av, char **envp)
 {
