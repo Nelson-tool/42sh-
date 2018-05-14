@@ -34,10 +34,13 @@ bool is_op(token_t op, int nb, ...)
 bool check_syntax(node_t *node)
 {
 	if (node->left && !check_syntax(node->left))
-			return (false);
+		return (false);
 	if (node->right && !check_syntax(node->right))
+		return (false);
+	if (node->op != EXPR) {
+		if (ERROR_PATTERNS[OP_ERRORS_PATTERNS[node->op]]
+			(node->left, node->right))
 			return (false);
-	if (node->op != EXPR && ERROR_TOKEN[node->op](node->left, node->right))
-			return (false);
+	}
 	return (true);
 }

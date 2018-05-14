@@ -11,22 +11,6 @@
 #include "my.h"
 #include "shell.h"
 
-bool error_l_redir(node_t *left, node_t *right)
-{
-	if (is_null_command(right)) {
-		ERROR_MISSING_NAME_REDIR;
-		return (true);
-	} else if (is_null_command(left)) {
-		ERROR_NULL_COMMAND;
-		return (true);
-	} else if (is_op(right->op, 2, L_REDIR, L_DBL_REDIR,
-		R_REDIR, R_DBL_REDIR)) {
-		ERROR_AMBIGUOUS_INPUT;
-		return (true);
-	}
-	return (false);
-}
-
 bool exec_l_redir(shell_t *mysh, node_t *left, node_t *right)
 {
 	int save_stdin = dup(STDIN_FILENO);

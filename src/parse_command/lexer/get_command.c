@@ -7,8 +7,28 @@
 
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 #include "my.h"
 #include "shell.h"
+
+static void cut_comment(char *str)
+{
+	char *com = index(str, '#');
+
+	if (com != NULL)
+		*com = '\0';
+}
+
+static node_t *parse_line(char *line)
+{
+	node_t *tree = NULL;
+
+	cut_comment(line);
+	if (!check_quotes(line))
+		return (NULL);
+	tree = ll_lexer(line);
+	return (tree);
+}
 
 node_t *get_command(shell_t *mysh)
 {
@@ -25,7 +45,7 @@ node_t *get_command(shell_t *mysh)
 		return (NULL);
 	}
 	line[byte_read - 1] = '\0';
-	tree = ll_lexer(line);
+	tree = parse_line(line);
 	free(line);
 	if (tree == NULL) {
 		mysh->exit_status = 1;

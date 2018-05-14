@@ -13,11 +13,19 @@
 const char *get_token(const char *expr, const char * const *tokens)
 {
 	int len_token = 0;
+	char quote;
 
 	for (int i = 0 ; expr[i] ; ++i) {
+		if ((expr[i] == '\'' || expr[i] == '"') && !ESCAPED(expr, i)) {
+			quote = expr[i];
+			do {
+				++i;
+			} while (expr[i] != quote);
+		}
 		for (int j = 0 ; tokens[j] ; ++j) {
 			len_token = strlen(tokens[j]);
-			if (strncmp(expr + i, tokens[j], len_token) == 0)
+			if (strncmp(expr + i, tokens[j], len_token) == 0 &&
+				!ESCAPED(expr, i))
 				return (tokens[j]);
 		}
 	}

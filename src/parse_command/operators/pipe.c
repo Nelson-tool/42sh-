@@ -11,18 +11,6 @@
 #include "my.h"
 #include "shell.h"
 
-bool error_pipe(node_t *left, node_t *right)
-{
-	if (is_null_command(left) || is_null_command(right)) {
-		ERROR_NULL_COMMAND;
-		return (true);
-	} else if (is_op(right->op, 2, L_REDIR, L_DBL_REDIR)) {
-		ERROR_AMBIGUOUS_INPUT;
-		return (true);
-	}
-	return (false);
-}
-
 bool exec_pipe(shell_t *mysh, node_t *left, node_t *right)
 {
 	int data_channel[2];

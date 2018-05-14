@@ -17,10 +17,11 @@ BUILT_DIR	=	src/builtins
 
 SRC_COM		=	$(COM_DIR)/tree.c			\
 			$(COM_DIR)/lexer/get_command.c		\
+			$(COM_DIR)/lexer/check_quotes.c		\
 			$(COM_DIR)/lexer/ll_lexer.c		\
 			$(COM_DIR)/lexer/split_node.c		\
-			$(COM_DIR)/lexer/split_expressions.c	\
 			$(COM_DIR)/lexer/check_syntax.c		\
+			$(COM_DIR)/lexer/split_expressions.c	\
 			$(COM_DIR)/parser/exec_tree.c		\
 			$(COM_DIR)/parser/exec_command.c	\
 			$(COM_DIR)/parser/my_access.c		\
@@ -34,6 +35,7 @@ SRC_OP		=	$(OP_DIR)/semicolon.c			\
 			$(OP_DIR)/right_redirection.c		\
 			$(OP_DIR)/left_dbl_redirection.c	\
 			$(OP_DIR)/left_redirection.c		\
+			$(OP_DIR)/error_patterns.c
 
 SRC_BUILT	=	$(BUILT_DIR)/builtin_exit.c		\
 			$(BUILT_DIR)/builtin_env.c		\

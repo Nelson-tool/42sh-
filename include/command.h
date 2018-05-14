@@ -8,7 +8,7 @@
 #ifndef COMMAND_H
 #define COMMAND_H
 
-/* INCLUDE */
+/* INCLUDES */
 #include <fcntl.h>
 #include "operators.h"
 
@@ -31,11 +31,14 @@ typedef struct error_signal {
 
 
 /* FUNCTIONS */
-//parse_command/ll_parser/tree.c
+//tree.c
 node_t *create_node(void);
 bool create_branchs(node_t *node);
 void del_tree(node_t *tree);
 void show_tree(node_t *tree);
+
+//lexer/check_quotes.c
+bool check_quotes(char *line);
 
 //lexer/get_command.c
 node_t *get_command(shell_t *mysh);
@@ -69,6 +72,8 @@ void my_exec(shell_t *mysh, char *path, char **command);
 
 
 /* CONSTANTS */
+static const char QUOTES[] = "\"'";
+
 static const error_signal_t ERRORS_SIGNAL[] = {
 	{8, 136, "Floating exception\n"},
 	{11, 139, "Segmentation fault\n"},

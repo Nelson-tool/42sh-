@@ -15,19 +15,28 @@
 /* TYPEDEFS */
 typedef enum {
 	SEMICOLON,
+	AND,
+	OR,
 	PIPE,
 	R_DBL_REDIR,
 	R_REDIR,
 	L_DBL_REDIR,
 	L_REDIR,
-	EXPR
+	EXPR=-1
 } token_t;
+
+typedef enum {
+	ERR_PAT_SEMICOLON,
+	ERR_PAT_PIPE,
+	ERR_PAT_RIGHT_REDIR,
+	ERR_PAT_LEFT_REDIR
+} error_pattern_op_t;
 
 typedef struct node node_t;
 
+
 /* FUNCTIONS */
 //semicolon.c
-bool no_error_operator(node_t *left, node_t *right);
 bool exec_semicolon(shell_t *mysh, node_t *left, node_t *right);
 
 //and.c
@@ -37,21 +46,18 @@ bool exec_and(shell_t *mysh, node_t *left, node_t *right);
 bool exec_or(shell_t *mysh, node_t *left, node_t *right);
 
 //pipe.c
-bool error_pipe(node_t *left, node_t *right);
 bool exec_pipe(shell_t *mysh, node_t *left, node_t *right);
 
 //right_dbl_redirection.c
 bool exec_r_dbl_redir(shell_t *mysh, node_t *left, node_t *right);
 
 //right_redirection.c
-bool error_r_redir(node_t *left, node_t *right);
 bool exec_r_redir(shell_t *mysh, node_t *left, node_t *right);
 
 //left_dbl_redirection.c
 bool exec_l_dbl_redir(shell_t *mysh, node_t *left, node_t *right);
 
 //left_redirection.c
-bool error_l_redir(node_t *left, node_t *right);
 bool exec_l_redir(shell_t *mysh, node_t *left, node_t *right);
 
 
@@ -100,15 +106,27 @@ static const char * const TOKENS[] = {
 	NULL
 };
 
-static bool (*const ERROR_TOKEN[])
+static const error_pattern_op_t OP_ERRORS_PATTERNS[] = {
+	ERR_PAT_SEMICOLON,
+	ERR_PAT_SEMICOLON,
+	ERR_PAT_SEMICOLON,
+	ERR_PAT_PIPE,
+	ERR_PAT_RIGHT_REDIR,
+	ERR_PAT_RIGHT_REDIR,
+	ERR_PAT_LEFT_REDIR,
+	ERR_PAT_LEFT_REDIR
+};
+
+bool error_semicolon(UNUSED node_t *left, UNUSED node_t *right);
+bool error_pipe(node_t *left, node_t *right);
+bool error_l_redir(node_t *left, node_t *right);
+bool error_r_redir(node_t *left, node_t *right);
+
+static bool (*const ERROR_PATTERNS[])
 (node_t *left, node_t *right) = {
-	no_error_operator,
-	no_error_operator,
-	no_error_operator,
+	error_semicolon,
 	error_pipe,
 	error_r_redir,
-	error_r_redir,
-	error_l_redir,
 	error_l_redir
 };
 
@@ -128,13 +146,15 @@ static bool (*const TOKENS_EXEC[])
 
 
 /* ERRORS */
+#define ERROR_UNMATCHED_QUOTE(quote)		\
+printf("Unmatched '%c'.\n", quote)
 #define ERROR_NULL_COMMAND		\
-my_putstr("Invalid null command.\n")
+printf("Invalid null command.\n")
 #define ERROR_AMBIGUOUS_OUTPUT		\
-my_putstr("Ambiguous output redirect.\n")
+printf("Ambiguous output redirect.\n")
 #define ERROR_AMBIGUOUS_INPUT		\
-my_putstr("Ambiguous input redirect.\n")
+printf("Ambiguous input redirect.\n")
 #define ERROR_MISSING_NAME_REDIR		\
-my_putstr("Missing name for redirect.\n")
+printf("Missing name for redirect.\n")
 
 #endif
