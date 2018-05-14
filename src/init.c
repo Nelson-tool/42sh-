@@ -20,7 +20,7 @@ void sigint_hdl(UNUSED int signum)
 		display_prompt();
 }
 
-__attribute__((constructor)) void init_signal(void)
+/*__attribute__((constructor)) void init_signal(void)
 {
 	signal(SIGINT, &sigint_hdl);
-}
+}*/

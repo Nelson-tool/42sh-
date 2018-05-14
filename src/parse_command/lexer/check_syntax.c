@@ -42,7 +42,7 @@ bool check_syntax(node_t *node)
 			return (false);
 	}
 	if (node->op != EXPR) {
-		if (ERROR_TOKEN[node->op](node->left, node->right))
+		if (ERROR_PATTERNS[OP_ERRORS_PATTERNS[node->op]](node->left, node->right))
 			return (false);
 	}
 	return (true);
