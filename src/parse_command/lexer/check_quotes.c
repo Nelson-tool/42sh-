@@ -17,7 +17,7 @@ static int get_quote(const char *str, char *quote, int offset)
 	*quote = '\0';
 	while (str[i] && *quote == '\0') {
 		for (int j = 0 ; QUOTES[j] ; ++j) {
-			if (str[i] == QUOTES[j] && (!i || str[i - 1] != '\\'))
+			if (str[i] == QUOTES[j] && !ESCAPED(str, i))
 				*quote = str[i];
 		}
 		++i;

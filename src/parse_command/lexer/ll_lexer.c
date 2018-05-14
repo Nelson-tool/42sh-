@@ -15,7 +15,7 @@ const char *get_token(const char *expr, const char * const *tokens)
 	char quote;
 
 	for (int i = 0 ; expr[i] ; ++i) {
-		if (expr[i] == '\'' || expr[i] == '"') {
+		if ((expr[i] == '\'' || expr[i] == '"') && !ESCAPED(expr, i)) {
 			quote = expr[i];
 			do {
 				++i;
@@ -24,7 +24,7 @@ const char *get_token(const char *expr, const char * const *tokens)
 		for (int j = 0 ; tokens[j] ; ++j) {
 			len_token = my_strlen(tokens[j]);
 			if (my_strncmp(expr + i, tokens[j], len_token) == 0 &&
-				(i == 0 || expr[i - 1] != '\\'))
+				!ESCAPED(expr, i))
 				return (tokens[j]);
 		}
 	}
