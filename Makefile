@@ -16,10 +16,8 @@ OP_DIR		=	src/parse_command/operators
 BUILT_DIR	=	src/builtins
 
 SRC_COM		=	$(COM_DIR)/tree.c			\
-			$(COM_DIR)/lexer/list.c			\
 			$(COM_DIR)/lexer/get_command.c		\
 			$(COM_DIR)/lexer/check_quotes.c		\
-			$(COM_DIR)/lexer/list_command.c		\
 			$(COM_DIR)/lexer/ll_lexer.c		\
 			$(COM_DIR)/lexer/split_node.c		\
 			$(COM_DIR)/lexer/check_syntax.c		\

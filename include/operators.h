@@ -62,38 +62,6 @@ bool exec_l_redir(shell_t *mysh, node_t *left, node_t *right);
 
 
 /* CONSTANTS */
-/*static const token_t TK_SEMICOLON[] = {
-	SEMICOLON,
-	EXPR
-};
-
-static const token_t TK_AND_OR[] = {
-	AND,
-	OR,
-	EXPR
-};
-
-static const token_t TK_PIPE_RIGHT_REDIR[] = {
-	PIPE,
-	R_DBL_REDIR,
-	R_REDIR,
-	EXPR
-};
-
-static const token_t TK_LEFT_REDIR[] = {
-	L_DBL_REDIR,
-	L_REDIR,
-	EXPR
-};
-
-static const token_t * const TOKENS_PRIOR[] = {
-	TK_SEMICOLON,
-	TK_AND_OR,
-	TK_PIPE_RIGHT_REDIR,
-	TK_LEFT_REDIR,
-	NULL
-};*/
-
 static const char * const TK_SEMICOLON[] = {
 	";",
 	NULL
