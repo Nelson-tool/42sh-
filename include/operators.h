@@ -26,10 +26,15 @@ typedef enum {
 	SEMICOLON,
 	AND,
 	OR,
+	PIPE_AND,
 	PIPE,
 	R_1_DBL_REDIR,
+	R_2_DBL_REDIR,
+	R_AND_DBL_REDIR,
 	R_DBL_REDIR,
 	R_1_REDIR,
+	R_2_REDIR,
+	R_AND_REDIR,
 	R_REDIR,
 	L_DBL_REDIR,
 	L_REDIR,
@@ -56,11 +61,26 @@ bool exec_and(shell_t *mysh, node_t *left, node_t *right);
 //or.c
 bool exec_or(shell_t *mysh, node_t *left, node_t *right);
 
+//pipe_and.c
+bool exec_pipe_and(shell_t *mysh, node_t *left, node_t *right);
+
 //pipe.c
 bool exec_pipe(shell_t *mysh, node_t *left, node_t *right);
 
+//right_err_dbl_redirection.c
+bool exec_r_err_dbl_redir(shell_t *mysh, node_t *left, node_t *right);
+
+//right_and_dbl_redirection.c
+bool exec_r_and_dbl_redir(shell_t *mysh, node_t *left, node_t *right);
+
 //right_dbl_redirection.c
 bool exec_r_dbl_redir(shell_t *mysh, node_t *left, node_t *right);
+
+//right_err_redirection.c
+bool exec_r_err_redir(shell_t *mysh, node_t *left, node_t *right);
+
+//right_and_redirection.c
+bool exec_r_and_redir(shell_t *mysh, node_t *left, node_t *right);
 
 //right_redirection.c
 bool exec_r_redir(shell_t *mysh, node_t *left, node_t *right);
@@ -85,10 +105,15 @@ static const char * const TK_AND_OR[] = {
 };
 
 static const char * const TK_PIPE_RIGHT_REDIR[] = {
+	"|&",
 	"|",
 	"1>>",
+	"2>>",
+	">>&",
 	">>",
 	"1>",
+	"2>",
+	">&",
 	">",
 	NULL
 };
@@ -111,10 +136,15 @@ static const char * const TOKENS[] = {
 	";",
 	"&&",
 	"||",
+	"|&",
 	"|",
 	"1>>",
+	"2>>",
+	">>&",
 	">>",
 	"1>",
+	"2>",
+	">&",
 	">",
 	"<<",
 	"<",
@@ -126,6 +156,11 @@ static const error_pattern_op_t OP_ERRORS_PATTERNS[] = {
 	ERR_PAT_SEMICOLON,
 	ERR_PAT_SEMICOLON,
 	ERR_PAT_PIPE,
+	ERR_PAT_PIPE,
+	ERR_PAT_RIGHT_REDIR,
+	ERR_PAT_RIGHT_REDIR,
+	ERR_PAT_RIGHT_REDIR,
+	ERR_PAT_RIGHT_REDIR,
 	ERR_PAT_RIGHT_REDIR,
 	ERR_PAT_RIGHT_REDIR,
 	ERR_PAT_RIGHT_REDIR,
@@ -154,10 +189,15 @@ static bool (*const TOKENS_EXEC[])
 	exec_semicolon,
 	exec_and,
 	exec_or,
+	exec_pipe_and,
 	exec_pipe,
 	exec_r_dbl_redir,
+	exec_r_err_dbl_redir,
+	exec_r_and_dbl_redir,
 	exec_r_dbl_redir,
 	exec_r_redir,
+	exec_r_err_redir,
+	exec_r_and_redir,
 	exec_r_redir,
 	exec_l_dbl_redir,
 	exec_l_redir

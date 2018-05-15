@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2018
 ** 42sh
 ** File description:
-** Handles the pipe '|' operator.
+** Handles the pipe and '|&' operator.
 */
 
 #include <stdlib.h>
@@ -14,11 +14,14 @@
 static void redir_output(shell_t *mysh, node_t *left, int *data_channel)
 {
 	int save_stdout = dup(STDOUT_FILENO);
+	int save_stderr = dup(STDERR_FILENO);
 
 	close(data_channel[0]);
 	dup2(data_channel[1], STDOUT_FILENO);
+	dup2(data_channel[1], STDERR_FILENO);
 	exec_tree(mysh, left);
 	dup2(save_stdout, STDOUT_FILENO);
+	dup2(save_stderr, STDERR_FILENO);
 	exit(mysh->exit_status);
 }
 
@@ -32,7 +35,7 @@ static void use_redirctd_input(shell_t *mysh, node_t *right, int *data_channel)
 	dup2(save_stdin, STDIN_FILENO);
 }
 
-bool exec_pipe(shell_t *mysh, node_t *left, node_t *right)
+bool exec_pipe_and(shell_t *mysh, node_t *left, node_t *right)
 {
 	int data_channel[2];
 	pid_t child_process;
