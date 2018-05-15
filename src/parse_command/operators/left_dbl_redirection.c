@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 #include <wait.h>
 #include <stdbool.h>
 #include "my.h"
@@ -18,12 +19,12 @@ static void get_input_to_redirect(const char *stop, int fd)
 
 	do {
 		if (line != NULL) {
-			my_fprintf(fd, "%s\n", line);
+			dprintf(fd, "%s\n", line);
 			free(line);
 		}
 		my_putstr("? ");
 		line = get_next_line(STDIN_FILENO);
-	} while (line != NULL && my_strcmp(line, stop));
+	} while (line != NULL && strcmp(line, stop));
 }
 
 bool exec_l_dbl_redir(shell_t *mysh, node_t *left, node_t *right)

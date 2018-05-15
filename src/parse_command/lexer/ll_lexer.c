@@ -24,8 +24,8 @@ const char *get_token(const char *expr, const char * const *tokens)
 		}
 		for (int j = 0 ; tokens[j] ; ++j) {
 			len_token = strlen(tokens[j]);
-			if (strncmp(expr + i, tokens[j], len_token) == 0 &&
-				!ESCAPED(expr, i))
+			if (strncmp(expr + i, tokens[j], len_token) == 0
+				&& !ESCAPED(expr, i))
 				return (tokens[j]);
 		}
 	}

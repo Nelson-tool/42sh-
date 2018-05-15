@@ -39,7 +39,8 @@ bool split_node(node_t *node, const char *token, const char * const *tokens)
 	node->left->str = move_past_token(&copy, token);
 	node->op = get_op(copy);
 	copy[0] = '\0';
-	copy += strlen(TOKENS[node->op]);
+	if (node->op != EXPR)
+		copy += strlen(TOKENS[node->op]);
 	node->right->str = copy;
 	token = get_token(node->right->str, tokens);
 	if (token != NULL)

@@ -8,6 +8,15 @@
 #ifndef OPERATORS_H
 #define OPERATORS_H
 
+/* WHAT TO CHANGE WHEN CREATING A NEW OPERATOR ?
+** 1 - token enum
+** 2 - TOKENS_PRIOR
+** 3 - TOKENS
+** 4 - OP_ERROR_PATTERNS
+** 5 - TOKENS_EXEC
+** 6 - Tests to check if it works :(
+*/
+
 /* INCLUDE */
 #include <fcntl.h>
 
@@ -18,7 +27,9 @@ typedef enum {
 	AND,
 	OR,
 	PIPE,
+	R_1_DBL_REDIR,
 	R_DBL_REDIR,
+	R_1_REDIR,
 	R_REDIR,
 	L_DBL_REDIR,
 	L_REDIR,
@@ -75,7 +86,9 @@ static const char * const TK_AND_OR[] = {
 
 static const char * const TK_PIPE_RIGHT_REDIR[] = {
 	"|",
+	"1>>",
 	">>",
+	"1>",
 	">",
 	NULL
 };
@@ -99,7 +112,9 @@ static const char * const TOKENS[] = {
 	"&&",
 	"||",
 	"|",
+	"1>>",
 	">>",
+	"1>",
 	">",
 	"<<",
 	"<",
@@ -111,6 +126,8 @@ static const error_pattern_op_t OP_ERRORS_PATTERNS[] = {
 	ERR_PAT_SEMICOLON,
 	ERR_PAT_SEMICOLON,
 	ERR_PAT_PIPE,
+	ERR_PAT_RIGHT_REDIR,
+	ERR_PAT_RIGHT_REDIR,
 	ERR_PAT_RIGHT_REDIR,
 	ERR_PAT_RIGHT_REDIR,
 	ERR_PAT_LEFT_REDIR,
@@ -139,6 +156,8 @@ static bool (*const TOKENS_EXEC[])
 	exec_or,
 	exec_pipe,
 	exec_r_dbl_redir,
+	exec_r_dbl_redir,
+	exec_r_redir,
 	exec_r_redir,
 	exec_l_dbl_redir,
 	exec_l_redir

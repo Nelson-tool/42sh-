@@ -49,6 +49,8 @@ void del_tree(node_t *tree)
 
 void show_tree(node_t *tree)
 {
+	if (tree == NULL)
+		return;
 	if (tree->op != EXPR) {
 		printf("op: %s\n", TOKENS[tree->op]);
 	} else {
