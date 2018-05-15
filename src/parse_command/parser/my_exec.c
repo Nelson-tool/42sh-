@@ -37,7 +37,8 @@ void my_exec(shell_t *mysh, char *path, char **command)
 		perror("execve");
 		exit(1);
 	}
-	waitpid(child_pid, &mysh->exit_status, 0);
+	if (waitpid(child_pid, &mysh->exit_status, 0) == -1)
+		perror("waitpid");
 	mysh->exit_status %= 128;
 	print_error_signal(mysh->exit_status);
 }
