@@ -6,6 +6,7 @@
 */
 
 #include <stdlib.h>
+#include <string.h>
 #include "my.h"
 #include "shell.h"
 
@@ -14,10 +15,10 @@ node_t *create_node(void)
 	node_t *new_node = malloc(sizeof(node_t));
 
 	if (new_node == NULL) {
-		ERROR_MALLOC;
+		perror("malloc");
 		return (NULL);
 	}
-	my_memset(new_node, 0, sizeof(node_t));
+	memset(new_node, 0, sizeof(node_t));
 	new_node->op = EXPR;
 	return (new_node);
 }

@@ -49,7 +49,7 @@ static char **get_paths(char **env)
 		return (NULL);
 	bin_paths = my_str_split(env[pos] + 5, ":");
 	if (bin_paths == NULL)
-		ERROR_MALLOC;
+		perror("malloc");
 	return (bin_paths);
 }
 

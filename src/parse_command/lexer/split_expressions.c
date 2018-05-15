@@ -23,7 +23,7 @@ bool split_expressions(node_t *node)
 	if (node->op == EXPR) {
 		node->expr = my_str_split(node->str, SEP_CHARS);
 		if (node->expr == NULL) {
-			ERROR_MALLOC;
+			perror("malloc");
 			return (false);
 		}
 	}

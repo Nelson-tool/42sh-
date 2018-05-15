@@ -36,7 +36,7 @@ static char *create_env_var(char *name, char *value)
 		size += strlen(value);
 	var = malloc(sizeof(char) * size);
 	if (var == NULL) {
-		ERROR_MALLOC;
+		perror("malloc");
 		return (NULL);
 	}
 	if (value != NULL)
@@ -64,7 +64,7 @@ static bool add_env_var(shell_t *mysh, char *name, char *value)
 
 	copy = malloc(sizeof(char *) * (nb_vars + 2));
 	if (copy == NULL) {
-		ERROR_MALLOC;
+		perror("malloc");
 		return (false);
 	}
 	for (int i = 0 ; mysh->env[i] ; ++i)

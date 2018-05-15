@@ -6,17 +6,18 @@
 */
 
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 #include "my.h"
 
 static int get_next_chunk(int fd, char *chunk)
 {
 	static char mem[READ_SIZE + 1] = "";
-	int size_mem = my_strlen(mem);
+	int size_mem = strlen(mem);
 	int size_chunk = 0;
 
 	if (size_mem != 0) {
-		my_strcpy(chunk, mem);
+		strcpy(chunk, mem);
 		mem[0] = '\0';
 	}
 	else if (read(fd, chunk, READ_SIZE) <= 0)
@@ -24,7 +25,7 @@ static int get_next_chunk(int fd, char *chunk)
 	for (; chunk[size_chunk] != '\n' && chunk[size_chunk] ; ++size_chunk);
 	if (chunk[size_chunk] == '\n') {
 		chunk[size_chunk] = '\0';
-		my_strcpy(mem, chunk + size_chunk + 1);
+		strcpy(mem, chunk + size_chunk + 1);
 		return (1);
 	}
 	return (0);
@@ -41,7 +42,7 @@ char *get_next_line(int fd)
 	end_line = get_next_chunk(fd, chunk);
 	if (end_line == -1 || chunk == NULL)
 		return (NULL);
-	line = my_strdup(chunk);
+	line = strdup(chunk);
 	while (!end_line && line) {
 		for (int i = 0 ; i < READ_SIZE ; ++i)
 			chunk[i] = '\0';

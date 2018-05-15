@@ -5,11 +5,12 @@
 ** Tests what a string contains.
 */
 
+#include <string.h>
 #include "my.h"
 
 bool my_str_is(const char *str, const char *allowed)
 {
-	if (my_strlen(str) == 0)
+	if (strlen(str) == 0)
 		return (false);
 	for (int i = 0 ; str[i] ; ++i) {
 		if (!in_str(str[i], allowed))

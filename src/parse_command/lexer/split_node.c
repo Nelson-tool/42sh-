@@ -21,12 +21,13 @@ static token_t get_op(char *str)
 
 static char *move_past_token(char **str, const char *token)
 {
-	int pos = my_strstr(*str, token);
+	char *pos = strstr(*str, token);
 	char *left_expr = *str;
 
-	if (pos == -1)
-		pos = strlen(*str);
-	*str += pos;
+	if (pos != NULL)
+		*str = pos;
+	else
+		*str += strlen(*str);
 	return (left_expr);
 }
 

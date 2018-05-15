@@ -9,9 +9,7 @@
 
 int my_show_word_array(char * const *arr)
 {
-	for (int i = 0 ; arr[i] ; ++i) {
-		my_putstr(arr[i]);
-		my_putchar('\n');
-	}
+	for (int i = 0 ; arr[i] ; ++i)
+		puts(arr[i]);
 	return (0);
 }

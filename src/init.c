@@ -15,7 +15,7 @@ void sigint_hdl(UNUSED int signum)
 	int status = 0;
 
 	waitpid(-1, &status, 0);
-	my_putchar('\n');
+	putchar('\n');
 	if (!WIFSIGNALED(status))
 		display_prompt();
 }

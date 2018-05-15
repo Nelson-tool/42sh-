@@ -6,9 +6,10 @@
 */
 
 #include <unistd.h>
+#include <string.h>
 #include "my.h"
 
 void my_putstr(char const *str)
 {
-	write(STDOUT_FILENO, str, my_strlen(str));
+	write(STDOUT_FILENO, str, strlen(str));
 }

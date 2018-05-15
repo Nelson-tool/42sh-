@@ -15,7 +15,7 @@ static char **env_cpy(char **cpy, char **envp)
 	for (int i = 0 ; envp[i] ; ++i) {
 		cpy[i] = strdup(envp[i]);
 		if (cpy[i] == NULL) {
-			ERROR_MALLOC;
+			perror("malloc");
 			while (i--)
 				free(cpy[i]);
 			free(cpy);
@@ -33,7 +33,7 @@ char **env_dup(char **envp)
 	nb_vars = my_strlen_tab((void **) envp);
 	cpy = malloc(sizeof(char *) * (nb_vars + 1));
 	if (cpy == NULL) {
-		ERROR_MALLOC;
+		perror("malloc");
 		return (NULL);
 	}
 	cpy[nb_vars] = NULL;

@@ -18,7 +18,7 @@ bool exec_r_dbl_redir(shell_t *mysh, node_t *left, node_t *right)
 
 	out = open(right->expr[0], O_WRONLY | O_CREAT | O_APPEND, REG_RIGHTS);
 	if (out == -1) {
-		ERROR_OPEN;
+		perror("open");
 		return (false);
 	}
 	dup2(out, STDOUT_FILENO);

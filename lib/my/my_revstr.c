@@ -6,11 +6,12 @@
 */
 
 #include <stdlib.h>
+#include <string.h>
 #include "my.h"
 
 char *my_revstr(char *str)
 {
-	int len = my_strlen(str);
+	int len = strlen(str);
 	char tmp = 0;
 
 	for (int i = 0 ; i < len / 2 ; ++i) {

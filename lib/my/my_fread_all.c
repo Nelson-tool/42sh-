@@ -5,6 +5,7 @@
 ** Reads a whole file and returns a character string.
 */
 
+#include <string.h>
 #include "my.h"
 
 char *my_fread_all(FILE *file)
@@ -21,7 +22,7 @@ char *my_fread_all(FILE *file)
 			str = my_append(str, buffer);
 			if (str == NULL)
 				return (NULL);
-			my_memset(buffer, 0, BUFFER_SIZE);
+			memset(buffer, 0, BUFFER_SIZE);
 		}
 	}
 	str = my_append(str, buffer);

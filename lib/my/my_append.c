@@ -6,6 +6,7 @@
 */
 
 #include <stdlib.h>
+#include <string.h>
 #include "my.h"
 
 char *my_append(char *str, char const *cat)
@@ -14,13 +15,13 @@ char *my_append(char *str, char const *cat)
 	int new_len = 0;
 
 	if (str == NULL)
-		return (my_strdup(cat));
+		return (strdup(cat));
 	if (cat != NULL) {
-		len_cat = my_strlen(cat);
-		new_len = my_strlen(str) + len_cat + 1;
-		str = my_realloc(str, new_len);
+		len_cat = strlen(cat);
+		new_len = strlen(str) + len_cat + 1;
+		str = realloc(str, new_len);
 		if (str != NULL)
-			str = my_strcat(str, cat);
+			str = strcat(str, cat);
 	}
 	return (str);
 }

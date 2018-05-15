@@ -40,7 +40,7 @@ static char **copy_incomplete_env(char **env, int nb_vars, int unset_vars)
 	char **copy = malloc(sizeof(char *) * (nb_vars - unset_vars + 1));
 
 	if (copy == NULL) {
-		ERROR_MALLOC;
+		perror("malloc");
 		return (NULL);
 	}
 	for (int i = 0, j = 0 ; j < nb_vars ; ++i, ++j) {

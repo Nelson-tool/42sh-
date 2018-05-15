@@ -6,6 +6,7 @@
 */
 
 #include <stdlib.h>
+#include <string.h>
 #include "my.h"
 
 static int count_words(const char *str, const char *seps)
@@ -32,7 +33,7 @@ static char *get_word(const char **str, const char *seps)
 	word = malloc(sizeof(char) * (wsize + 1));
 	if (word == NULL)
 		return (NULL);
-	my_strncpy(word, *str, wsize);
+	strncpy(word, *str, wsize);
 	word[wsize] = '\0';
 	(*str) += wsize;
 	return (word);

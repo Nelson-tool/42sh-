@@ -6,14 +6,15 @@
 */
 
 #include <stdlib.h>
+#include <string.h>
 #include "my.h"
 
 char *my_push_back(char *str, char const cat)
 {
 	int new_len = 0;
 
-	new_len = my_strlen(str) + 2;
-	str = my_realloc(str, new_len);
+	new_len = strlen(str) + 2;
+	str = realloc(str, new_len);
 	if (str != NULL)
 		str[new_len - 2] = cat;
 	return (str);
