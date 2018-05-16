@@ -28,6 +28,20 @@ bool exec_err(shell_t *mysh, node_t *left, int *data_channel, pid_t child_pid)
 		return (true);
 }
 
+bool exec_err_pf(int *data_channel, pid_t child_pid)
+{	
+	if (pipe(data_channel) == -1) {
+		perror("pipe");
+		return (false);
+	}
+	child_pid = fork();
+	if (child_pid == -1) {
+		perror("fork");
+		return (false);
+	}
+	return (true);
+}
+
 static void get_input_to_redirect(const char *stop, int fd)
 {
 	char *line = NULL;
@@ -46,16 +60,16 @@ bool exec_l_dbl_redir(shell_t *mysh, node_t *left, node_t *right)
 {
 	int data_channel[2];
 	int save_stdin = dup(STDIN_FILENO);
-	pid_t child_pid;
+	pid_t child_pid = 0;
 
-	pipe(data_channel);
-	child_pid = fork();
+	if (exec_err_pf(data_channel, child_pid) == false)
+		return (false);
 	if (child_pid == 0) {
 		close(data_channel[0]);
 		get_input_to_redirect(right->expr[0], data_channel[1]);
 		exit(mysh->exit_status);
 	} else {
-		if (exec_err(mysh, left, data_channel, child_pid) == 0) {
+		if (!exec_err(mysh, left, data_channel, child_pid)) {
 			if (dup2(save_stdin, STDIN_FILENO) == -1)
 				perror("dup2");
 			return (false);
