@@ -14,12 +14,8 @@
 bool exec_l_redir(shell_t *mysh, node_t *left, node_t *right)
 {
 	int save_stdin = dup(STDIN_FILENO);
-	int in;
+	int in = open(right->expr[0], O_RDONLY);
 
-	if (right->expr != NULL)
-		in = open(right->expr[0], O_RDONLY);
-	else
-		in = open(right->left->expr[0], O_RDONLY);
 	if (in == -1) {
 		ERROR_NO_FILE(right->expr[0]);
 		return (false);
