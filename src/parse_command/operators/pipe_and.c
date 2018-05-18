@@ -11,48 +11,46 @@
 #include "my.h"
 #include "shell.h"
 
-static void redir_output(shell_t *mysh, node_t *left, int *data_channel)
+static void redir_output(shell_t *mysh, node_t *left, int *pipefd)
 {
 	int save_stdout = dup(STDOUT_FILENO);
 	int save_stderr = dup(STDERR_FILENO);
 
-	close(data_channel[0]);
-	dup2(data_channel[1], STDOUT_FILENO);
-	dup2(data_channel[1], STDERR_FILENO);
+	close(pipefd[0]);
+	dup2(pipefd[1], STDOUT_FILENO);
+	dup2(pipefd[1], STDERR_FILENO);
 	exec_tree(mysh, left);
 	dup2(save_stdout, STDOUT_FILENO);
 	dup2(save_stderr, STDERR_FILENO);
 	exit(mysh->exit_status);
 }
 
-static void use_redirctd_input(shell_t *mysh, node_t *right, int *data_channel)
+static void use_redirctd_input(shell_t *mysh, node_t *right, int *pipefd)
 {
 	int save_stdin = dup(STDIN_FILENO);
 
-	close(data_channel[1]);
-	dup2(data_channel[0], STDIN_FILENO);
+	close(pipefd[1]);
+	dup2(pipefd[0], STDIN_FILENO);
 	exec_tree(mysh, right);
 	dup2(save_stdin, STDIN_FILENO);
 }
 
 bool exec_pipe_and(shell_t *mysh, node_t *left, node_t *right)
 {
-	int data_channel[2];
+	int pipefd[2];
 	pid_t child_process;
 
-	if (pipe(data_channel) == -1) {
+	if (pipe(pipefd) == -1) {
 		perror("pipe");
 		return (false);
 	}
 	child_process = fork();
 	if (child_process == -1) {
 		perror("fork");
-		close(data_channel[0]);
-		close(data_channel[1]);
 		return (false);
 	} else if (child_process == 0)
-		redir_output(mysh, left, data_channel);
+		redir_output(mysh, left, pipefd);
 	else
-		use_redirctd_input(mysh , right, data_channel);
+		use_redirctd_input(mysh , right, pipefd);
 	return (true);
 }

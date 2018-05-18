@@ -13,7 +13,7 @@
 #include "my.h"
 #include "shell.h"
 
-static _Noreturn void get_input_to_redirect(const char *stop, int *fds)
+static void get_input_to_redirect(const char *stop, int *fds)
 {
 	char *line = NULL;
 
@@ -33,7 +33,6 @@ static bool use_redirected_input
 (shell_t *mysh, node_t *left, int *pipefd, pid_t child_pid)
 {
 	int save_stdin = dup(STDIN_FILENO);
-	bool result;
 
 	if (close(pipefd[1]) == -1)
 		perror("close");
@@ -46,10 +45,10 @@ static bool use_redirected_input
 		perror("dup2");
 		return (false);
 	}
-	result = exec_tree(mysh, left);
+	exec_tree(mysh, left);
 	if (dup2(save_stdin, STDIN_FILENO) == -1)
 		perror("dup2");
-	return (result);
+	return (true);
 }
 
 bool exec_l_dbl_redir(shell_t *mysh, node_t *left, node_t *right)
@@ -70,7 +69,5 @@ bool exec_l_dbl_redir(shell_t *mysh, node_t *left, node_t *right)
 		return (false);
 	else if (child_pid == 0)
 		get_input_to_redirect(right->expr[0], pipefd);
-	else if (!use_redirected_input(mysh, left, pipefd, child_pid))
-		return (false);
-	return (true);
+	return (use_redirected_input(mysh, left, pipefd, child_pid));
 }
