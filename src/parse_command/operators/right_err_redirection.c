@@ -11,19 +11,39 @@
 #include "my.h"
 #include "shell.h"
 
-bool exec_r_err_redir(shell_t *mysh, node_t *left, node_t *right)
+static bool setup_right_err_redir
+(int *save_stderr, int *err, const char *filename)
 {
-	int save_stderr = dup(STDERR_FILENO);
-	int err;
-
-	err = open(right->expr[0], O_WRONLY | O_CREAT | O_TRUNC, REG_RIGHTS);
-	if (err == -1) {
+	*save_stderr = dup(STDERR_FILENO);
+	if (*save_stderr == -1) {
+		perror("dup");
+		return (false);
+	}
+	*err = open(filename, O_WRONLY | O_CREAT | O_TRUNC, REG_RIGHTS);
+	if (*err == -1) {
 		perror("open");
 		return (false);
 	}
-	dup2(err, STDERR_FILENO);
+	if (dup2(*err, STDERR_FILENO) == -1) {
+		perror("dup2");
+		if (close(*err) == -1)
+			perror("close");
+		return (false);
+	}
+	return (true);
+}
+
+bool exec_r_err_redir(shell_t *mysh, node_t *left, node_t *right)
+{
+	int save_stderr;
+	int err;
+
+	if (!setup_right_err_redir(&save_stderr, &err, right->expr[0]))
+		return (false);
 	exec_tree(mysh, left);
-	dup2(save_stderr, STDERR_FILENO);
-	close(err);
+	if (dup2(save_stderr, STDERR_FILENO) == -1)
+		perror("dup2");
+	if (close(err) == -1)
+		perror("close");
 	return (true);
 }

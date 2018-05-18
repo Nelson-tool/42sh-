@@ -65,6 +65,7 @@ bool exec_or(shell_t *mysh, node_t *left, node_t *right);
 bool exec_pipe_and(shell_t *mysh, node_t *left, node_t *right);
 
 //pipe.c
+bool use_redirected_output(shell_t *mysh, node_t *right, int *pipefd);
 bool exec_pipe(shell_t *mysh, node_t *left, node_t *right);
 
 //right_err_dbl_redirection.c

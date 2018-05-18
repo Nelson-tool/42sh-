@@ -31,7 +31,7 @@ static void redir_output(shell_t *mysh, node_t *left, int *pipefd)
 	exit(mysh->exit_status);
 }
 
-static bool use_redirctd_input(shell_t *mysh, node_t *right, int *pipefd)
+bool use_redirected_output(shell_t *mysh, node_t *right, int *pipefd)
 {
 	int save_stdin = dup(STDIN_FILENO);
 
@@ -65,5 +65,5 @@ bool exec_pipe(shell_t *mysh, node_t *left, node_t *right)
 		return (false);
 	} else if (child_process == 0)
 		redir_output(mysh, left, pipefd);
-	return (use_redirctd_input(mysh , right, pipefd));
+	return (use_redirected_output(mysh , right, pipefd));
 }
