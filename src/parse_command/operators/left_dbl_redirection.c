@@ -13,7 +13,7 @@
 #include "my.h"
 #include "shell.h"
 
-static void get_input_to_redirect(const char *stop, int *fds)
+static _Noreturn void get_input_to_redirect(const char *stop, int *fds)
 {
 	char *line = NULL;
 
@@ -23,43 +23,54 @@ static void get_input_to_redirect(const char *stop, int *fds)
 			dprintf(fds[1], "%s\n", line);
 			free(line);
 		}
-		my_putstr("? ");
+		write(STDOUT_FILENO, "? ", 2);
 		line = get_next_line(STDIN_FILENO);
 	} while (line != NULL && strcmp(line, stop));
 	exit(0);
 }
 
-bool exec_err(shell_t *mysh, node_t *left, int *data_channel, pid_t child_pid)
+static bool use_redirected_input
+(shell_t *mysh, node_t *left, int *pipefd, pid_t child_pid)
 {
-		close(data_channel[1]);
-		if (dup2(data_channel[0], STDIN_FILENO) == -1) {
-			perror("dup2");
-			return (false);
-		}
-		if (waitpid(child_pid, &mysh->exit_status, 0) == -1) {
-			perror("waitpid");
-			return (false);
-		}
-		exec_tree(mysh, left);
-		return (true);
+	int save_stdin = dup(STDIN_FILENO);
+	bool result;
+
+	if (close(pipefd[1]) == -1)
+		perror("close");
+	if (save_stdin == -1) {
+		perror("dup");
+		return (false);
+	}
+	waitpid(child_pid, &mysh->exit_status, 0);
+	if (dup2(pipefd[0], STDIN_FILENO) == -1) {
+		perror("dup2");
+		return (false);
+	}
+	result = exec_tree(mysh, left);
+	if (dup2(save_stdin, STDIN_FILENO) == -1)
+		perror("dup2");
+	return (result);
 }
 
 bool exec_l_dbl_redir(shell_t *mysh, node_t *left, node_t *right)
 {
-	int data_channel[2];
-	int save_stdin = dup(STDIN_FILENO);
+	int pipefd[2];
 	pid_t child_pid;
 
-	pipe(data_channel);
-	child_pid = fork();
-	if (child_pid == 0)
-		get_input_to_redirect(right->expr[0], data_channel);
-	else {
-		if (exec_err(mysh, left, data_channel, child_pid) == 0) {
-			if (dup2(save_stdin, STDIN_FILENO) == -1)
-				perror("dup2");
-			return (false);
-		}
+	if (pipe(pipefd) == -1) {
+		perror("pipe");
+		return (false);
 	}
+	child_pid = fork();
+	if (child_pid == -1) {
+		perror("fork");
+		return (false);
+	}
+	if (child_pid == -1)
+		return (false);
+	else if (child_pid == 0)
+		get_input_to_redirect(right->expr[0], pipefd);
+	else if (!use_redirected_input(mysh, left, pipefd, child_pid))
+		return (false);
 	return (true);
 }
