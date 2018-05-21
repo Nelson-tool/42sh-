@@ -53,6 +53,9 @@ bool split_node(node_t *node, const char *token, const char * const *tokens);
 //lexer/split_expressions.c
 bool split_expressions(node_t *node);
 
+//lexer/split_argv.c
+char **rec_split_words(const char *str, int prof);
+
 //lexer/check_syntax.c
 bool is_null_command(node_t *node);
 bool is_op(token_t op, int nb, ...);
