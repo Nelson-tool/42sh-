@@ -14,7 +14,6 @@ void builtin_pwd(shell_t *mysh, UNUSED char **command)
 {
 	char cwd[PATH_MAX + 1] = "";
 
-	printf("hello\n");
 	if (my_strlen_tab((void *) command) > 1) {
 		ERROR_PWD_TOO_MANY_ARG;
 		mysh->exit_status = 1;
