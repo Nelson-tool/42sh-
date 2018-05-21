@@ -47,7 +47,8 @@ SRC_BUILT	=	$(BUILT_DIR)/builtin_exit.c		\
 			$(BUILT_DIR)/builtin_env.c		\
 			$(BUILT_DIR)/builtin_setenv.c		\
 			$(BUILT_DIR)/builtin_unsetenv.c		\
-			$(BUILT_DIR)/builtin_cd.c
+			$(BUILT_DIR)/builtin_cd.c		\
+			$(BUILT_DIR)/builtin_pwd.c
 
 SRC		=	src/main.c		\
 			src/init.c		\

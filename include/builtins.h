@@ -31,6 +31,9 @@ void builtin_unsetenv(shell_t *mysh, char **command);
 //builtin_cd.c
 void builtin_cd(shell_t *mysh, char **command);
 
+//builtin_pwd.c
+void builtin_pwd(shell_t *mysh, UNUSED char **command);
+
 
 /* CONSTANTS */
 static const builtin_t BUILTINS[] = {
@@ -38,10 +41,11 @@ static const builtin_t BUILTINS[] = {
 	{"env", builtin_env},
 	{"setenv", builtin_setenv},
 	{"unsetenv", builtin_unsetenv},
-	{"cd", builtin_cd}
+	{"cd", builtin_cd},
+	{"pwd", builtin_pwd}
 };
 
-static const int NB_BUILTINS = 5;
+static const int NB_BUILTINS = 6;
 
 
 /* ERRORS */
@@ -68,5 +72,11 @@ puts("cd: Can't change to home directory.")
 puts("cd: Too many arguments.")
 #define ERROR_CD_NOT_DIR(name)		\
 printf("%s: Not a directory.\n", name)
+
+//pwd
+#define ERROR_PWD_TOO_MANY_ARG		\
+puts("pwd: too many arguments")
+#define ERROR_PWD_BAD_OPTION(opt)		\
+printf("pwd: bad option: %s\n", opt)
 
 #endif

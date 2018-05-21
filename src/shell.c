@@ -17,7 +17,10 @@ void display_prompt(void)
 	char path[PATH_MAX + 1] = "";
 	char *dir;
 
-	getcwd(path, PATH_MAX);
+	if (getcwd(path, PATH_MAX) == NULL) {
+		perror("getcwd");
+		return;
+	}
 	dir = rindex(path, '/');
 	dprintf(STDOUT_FILENO, "(42sh %s)$ ", (dir == path) ? dir : dir + 1);
 }
