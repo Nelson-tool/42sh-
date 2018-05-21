@@ -12,10 +12,9 @@
 
 int main(UNUSED int ac, UNUSED char **av, char **envp)
 {
-	shell_t mysh = {.env = env_dup(envp), .tty = isatty(STDIN_FILENO)};
+	shell_t mysh = {0};
 
-	if (mysh.env == NULL)
-		return (84);
+	init_shell(&mysh, envp);
 	shell(&mysh);
 	my_free_array((void **) mysh.env);
 	return (mysh.exit_status);

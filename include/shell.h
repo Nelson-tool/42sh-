@@ -12,6 +12,7 @@
 #include "struct.h"
 #include "macro.h"
 #include "error_general.h"
+#include "init.h"
 #include "command.h"
 #include "builtins.h"
 

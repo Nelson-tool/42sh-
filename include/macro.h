@@ -13,6 +13,5 @@
 #endif
 
 #define UNUSED __attribute__((unused))
-#define ESCAPED(str, i) (i != 0 && str[i - 1] == '\\')
 
 #endif

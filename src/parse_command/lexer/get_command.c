@@ -19,7 +19,7 @@ static void cut_comment(char *str)
 		*com = '\0';
 }
 
-static node_t *parse_line(char *line)
+node_t *parse_line(char *line)
 {
 	node_t *tree = NULL;
 

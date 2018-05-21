@@ -41,6 +41,7 @@ void show_tree(node_t *tree);
 bool check_quotes(char *line);
 
 //lexer/get_command.c
+node_t *parse_line(char *line);
 node_t *get_command(shell_t *mysh);
 
 //lexer/ll_lexer.c
@@ -82,5 +83,9 @@ static const error_signal_t ERRORS_SIGNAL[] = {
 	{11, 139, "Segmentation fault\n"},
 	{0}
 };
+
+
+/* MACRO */
+#define ESCAPED(str, i) (i != 0 && str[i - 1] == '\\')
 
 #endif

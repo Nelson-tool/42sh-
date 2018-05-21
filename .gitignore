@@ -2,8 +2,9 @@
 *.a
 *.gc*
 *~
-#*#
+*#*
 vgcore.*
 42sh
 segfault
 memo.txt
+.42shrc
