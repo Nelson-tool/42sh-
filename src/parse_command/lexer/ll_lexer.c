@@ -16,11 +16,11 @@ const char *get_token(const char *expr, const char * const *tokens)
 	char quote;
 
 	for (int i = 0 ; expr[i] ; ++i) {
-		if ((expr[i] == '\'' || expr[i] == '"') && !ESCAPED(expr, i)) {
+		if (in_str(expr[i], QUOTES) && !ESCAPED(expr, i)) {
 			quote = expr[i];
 			do {
 				++i;
-			} while (expr[i] != quote);
+			} while (expr[i] != quote || ESCAPED(expr, i));
 		}
 		for (int j = 0 ; tokens[j] ; ++j) {
 			len_token = strlen(tokens[j]);

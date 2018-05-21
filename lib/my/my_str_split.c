@@ -30,10 +30,9 @@ static char *get_word(const char **str, const char *seps)
 	while (in_str((*str)[0], seps))
 		++(*str);
 	for (; !in_str((*str)[wsize], seps) && (*str)[wsize] ; ++wsize);
-	word = malloc(sizeof(char) * (wsize + 1));
+	word = strndup(*str, wsize);
 	if (word == NULL)
 		return (NULL);
-	strncpy(word, *str, wsize);
 	word[wsize] = '\0';
 	(*str) += wsize;
 	return (word);

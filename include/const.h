@@ -8,6 +8,6 @@
 #ifndef CONST_H
 #define CONST_H
 
-static const char SEP_CHARS[] = " \t";
+static const char SEPS[] = " \t";
 
 #endif
