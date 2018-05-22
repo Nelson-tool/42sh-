@@ -32,8 +32,10 @@ void builtin_unsetenv(shell_t *mysh, char **command);
 void builtin_cd(shell_t *mysh, char **command);
 
 //builtin_pwd.c
-void builtin_pwd(shell_t *mysh, UNUSED char **command);
+void builtin_pwd(shell_t *mysh, char **command);
 
+//builtin_echo.c
+void builtin_echo(shell_t *mysh, char **command);
 
 /* CONSTANTS */
 static const builtin_t BUILTINS[] = {
@@ -42,10 +44,11 @@ static const builtin_t BUILTINS[] = {
 	{"setenv", builtin_setenv},
 	{"unsetenv", builtin_unsetenv},
 	{"cd", builtin_cd},
-	{"pwd", builtin_pwd}
+	{"pwd", builtin_pwd},
+	{"echo", builtin_echo}
 };
 
-static const int NB_BUILTINS = 6;
+static const int NB_BUILTINS = 7;
 
 
 /* ERRORS */

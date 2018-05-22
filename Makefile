@@ -5,7 +5,7 @@
 ## Makefile for 42sh
 ##
 
-CC		=	gcc
+CC		=	gcc -g3
 
 RM		=	rm
 
@@ -48,7 +48,8 @@ SRC_BUILT	=	$(BUILT_DIR)/builtin_exit.c		\
 			$(BUILT_DIR)/builtin_setenv.c		\
 			$(BUILT_DIR)/builtin_unsetenv.c		\
 			$(BUILT_DIR)/builtin_cd.c		\
-			$(BUILT_DIR)/builtin_pwd.c
+			$(BUILT_DIR)/builtin_pwd.c              \
+			$(BUILT_DIR)/builtin_echo.c             
 
 SRC		=	src/main.c		\
 			src/init.c		\
