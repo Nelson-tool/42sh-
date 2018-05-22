@@ -71,6 +71,7 @@ static void exec_config_file(shell_t *shell)
 		}
 	}
 	shell->stop = false;
+	fclose(conf);
 }
 
 void init_shell(shell_t *shell, int ac, char **av, char **env)
@@ -78,15 +79,17 @@ void init_shell(shell_t *shell, int ac, char **av, char **env)
 	node_t *tree = NULL;
 
 	shell->env = env_dup(env);
-		if (ac == 3 && strcmp(av[1], "-c") == 0) {
-		tree = parse_line(av[2]);
-		exec_tree(shell, tree);
-		del_tree(tree);
-		shell->stop = true;
-	}
 	if (shell->env && get_pos_env(shell->env, "PATH") == -1)
 		builtin_setenv(shell, DEFAULT_PATH);
 	shell->tty = isatty(STDIN_FILENO);
-	exec_config_file(shell);
+	if (ac == 2 && strcmp(av[1], "-c") == 0) {
+		if (av[2] != NULL) {
+			tree = parse_line(av[2]);
+			exec_tree(shell, tree);
+			del_tree(tree);
+		}
+		shell->stop = true;
+	} else
+		exec_config_file(shell);
 	init_signal();
 }

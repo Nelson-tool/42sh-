@@ -11,6 +11,6 @@
 void builtin_env(shell_t *mysh, UNUSED char **command)
 {
 	for (int i = 0 ; mysh->env[i] ; ++i)
-		printf("%s\n", mysh->env[i]);
+		puts(mysh->env[i]);
 	mysh->exit_status = 0;
 }

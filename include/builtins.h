@@ -32,7 +32,7 @@ void builtin_unsetenv(shell_t *mysh, char **command);
 void builtin_cd(shell_t *mysh, char **command);
 
 //builtin_pwd.c
-void builtin_pwd(shell_t *mysh, UNUSED char **command);
+void builtin_pwd(shell_t *mysh, char **command);
 
 
 /* CONSTANTS */
