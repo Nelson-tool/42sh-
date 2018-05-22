@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <unistd.h>
+#include <string.h>
 #include <wait.h>
 #include "my.h"
 #include "shell.h"
@@ -72,9 +73,17 @@ static void exec_config_file(shell_t *shell)
 	shell->stop = false;
 }
 
-void init_shell(shell_t *shell, char **env)
+void init_shell(shell_t *shell, int ac, char **av, char **env)
 {
+	node_t *tree = NULL;
+
 	shell->env = env_dup(env);
+		if (ac == 3 && strcmp(av[1], "-c") == 0) {
+		tree = parse_line(av[2]);
+		exec_tree(shell, tree);
+		del_tree(tree);
+		shell->stop = true;
+	}
 	if (shell->env && get_pos_env(shell->env, "PATH") == -1)
 		builtin_setenv(shell, DEFAULT_PATH);
 	shell->tty = isatty(STDIN_FILENO);

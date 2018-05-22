@@ -10,11 +10,11 @@
 #include "my.h"
 #include "shell.h"
 
-int main(UNUSED int ac, UNUSED char **av, char **envp)
+int main(int ac, char **av, char **envp)
 {
 	shell_t mysh = {0};
 
-	init_shell(&mysh, envp);
+	init_shell(&mysh, ac, av, envp);
 	shell(&mysh);
 	my_free_array((void **) mysh.env);
 	return (mysh.exit_status);
