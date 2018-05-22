@@ -50,6 +50,9 @@ static const builtin_t BUILTINS[] = {
 
 static const int NB_BUILTINS = 7;
 
+static const char ECHO_SEQS[] = "abcefnrtv";
+static const int NB_ECHO_SEQS = 8;
+
 
 /* ERRORS */
 //exit
