@@ -54,40 +54,40 @@ static node_t *get_config_command(shell_t *mysh, FILE *conf)
 	return (tree);
 }
 
-static void exec_config_file(shell_t *shell)
+static void exec_config_file(shell_t *mysh)
 {
 	FILE *conf = fopen(CONF_FILE, "r");
 	node_t *tree = NULL;
 
 	if (conf == NULL)
 		return;
-	while (!shell->stop) {
-		tree = get_config_command(shell, conf);
+	while (!mysh->stop) {
+		tree = get_config_command(mysh, conf);
 		if (tree != NULL) {
-			exec_tree(shell, tree);
+			exec_tree(mysh, tree);
 			del_tree(tree);
 		}
 	}
-	shell->stop = false;
+	mysh->stop = false;
 	fclose(conf);
 }
 
-void init_shell(shell_t *shell, int ac, char **av, char **env)
+void init_shell(shell_t *mysh, int ac, char **av, char **env)
 {
 	node_t *tree = NULL;
 
-	shell->env = env_dup(env);
-	if (shell->env && get_pos_env(shell->env, "PATH") == -1)
-		builtin_setenv(shell, DEFAULT_PATH);
-	shell->tty = isatty(STDIN_FILENO);
+	mysh->env = env_dup(env);
+	if (mysh->env && get_pos_env(mysh->env, "PATH") == -1)
+		builtin_setenv(mysh, DEFAULT_PATH);
+	mysh->tty = isatty(STDIN_FILENO);
 	if (ac == 2 && strcmp(av[1], "-c") == 0) {
 		if (av[2] != NULL) {
-			tree = parse_line(av[2]);
-			exec_tree(shell, tree);
+			tree = parse_line(av[2], mysh);
+			exec_tree(mysh, tree);
 			del_tree(tree);
 		}
-		shell->stop = true;
+		mysh->stop = true;
 	} else
-		exec_config_file(shell);
+		exec_config_file(mysh);
 	init_signal();
 }

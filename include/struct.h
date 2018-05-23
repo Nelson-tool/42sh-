@@ -8,6 +8,8 @@
 #ifndef STRUCT_H
 #define STRUCT_H
 
+typedef struct alias alias_t;
+
 typedef struct bg_process {
 	int pid;
 	char *command;
@@ -17,6 +19,7 @@ typedef struct bg_process {
 typedef struct shell {
 	char **env;
 	bg_process_t *bg_process;
+	alias_t *alias;
 	int tty;
 	int exit_status;
 	bool stop;

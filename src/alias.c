@@ -6,11 +6,12 @@
 */
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 #include "my.h"
 #include "shell.h"
 
-node_t *create_alias(const char *name, const char *value)
+alias_t *create_alias(const char *name, const char *value)
 {
 	alias_t *alias = malloc(sizeof(node_t));
 
@@ -19,7 +20,7 @@ node_t *create_alias(const char *name, const char *value)
 		return (NULL);
 	}
 	memset(alias, 0, sizeof(node_t));
-	alias->name = strdup(alias);
+	alias->name = strdup(name);
 	if (alias->name == NULL) {
 		perror("strdup");
 		free(alias);
@@ -35,26 +36,12 @@ node_t *create_alias(const char *name, const char *value)
 	return (alias);
 }
 
-bool create_abranchs(alias_t *alias)
-{
-	alias->higher = create_node();
-	if (alias->higher == NULL)
-		return (false);
-	alias->lower = create_node();
-	if (alias->lower == NULL) {
-		free(alias->lower);
-		alias->lower = NULL;
-		return (false);
-	}
-	return (true);
-}
-
-void del_aliases(alias_t *alias)
+void del_alias(alias_t *alias)
 {
 	if (alias->higher != NULL)
-		del_tree(alias->higher);
+		del_alias(alias->higher);
 	if (alias->lower != NULL)
-		del_tree(alias->lower);
+		del_alias(alias->lower);
 	free(alias->name);
 	free(alias->value);
 	free(alias);
@@ -62,6 +49,8 @@ void del_aliases(alias_t *alias)
 
 void show_alias_tree(alias_t *tree)
 {
+	if (tree == NULL)
+		return;
 	if (tree->lower != NULL)
 		show_alias_tree(tree->lower);
 	if (tree->higher != NULL)
@@ -76,11 +65,11 @@ char *search_alias(alias_t *tree, const char *name)
 	if (diff < 0) {
 		if (tree->lower == NULL)
 			return (NULL);
-		return (search_alias(tree->lower));
+		return (search_alias(tree->lower, name));
 	} else if (diff > 0) {
 		if (tree->higher == NULL)
 			return (NULL);
-		return (search_alias(tree->higher));
+		return (search_alias(tree->higher, name));
 	} else
 		return (tree->value);
 }

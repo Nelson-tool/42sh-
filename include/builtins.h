@@ -43,6 +43,12 @@ void builtin_jobs(shell_t *mysh, char **command);
 //builtin_fg.c
 void builtin_fg(shell_t *mysh, char **command);
 
+//builtin_alias.c
+void builtin_alias(shell_t *mysh, char **command);
+
+//builtin_unalias.c
+void builtin_unalias(shell_t *mysh, char **command);
+
 /* CONSTANTS */
 static const builtin_t BUILTINS[] = {
 	{"exit", builtin_exit},
@@ -54,10 +60,11 @@ static const builtin_t BUILTINS[] = {
 	{"echo", builtin_echo},
 	{"jobs", builtin_jobs},
 	{"fg", builtin_fg},
+	{"alias", builtin_alias},
 	{"unalias", builtin_unalias}
 };
 
-static const int NB_BUILTINS = 10;
+static const int NB_BUILTINS = 11;
 
 static const char ECHO_SEQS[] = "abcefnrtv";
 static const int NB_ECHO_SEQS = 8;

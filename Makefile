@@ -24,7 +24,6 @@ SRC_COM		=	$(COM_DIR)/tree.c			\
 			$(COM_DIR)/lexer/split_expressions.c	\
 			$(COM_DIR)/lexer/split_argv.c		\
 			$(COM_DIR)/parser/exec_tree.c		\
-			$(COM_DIR)/lexer/alias.c		\
 			$(COM_DIR)/parser/exec_command.c	\
 			$(COM_DIR)/parser/my_access.c		\
 			$(COM_DIR)/parser/my_exec.c
@@ -53,11 +52,14 @@ SRC_BUILT	=	$(BUILT_DIR)/builtin_exit.c		\
 			$(BUILT_DIR)/builtin_pwd.c              \
 			$(BUILT_DIR)/builtin_echo.c             \
 			$(BUILT_DIR)/builtin_jobs.c		\
-			$(BUILT_DIR)/builtin_fg.c
+			$(BUILT_DIR)/builtin_fg.c		\
+			$(BUILT_DIR)/builtin_alias.c		\
+			$(BUILT_DIR)/builtin_unalias.c
 
 SRC		=	src/main.c		\
 			src/init.c		\
 			src/env.c		\
+			src/alias.c		\
 			src/bg_process.c	\
 			src/shell.c
 

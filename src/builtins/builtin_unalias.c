@@ -8,11 +8,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
 #include "shell.h"
 
-
-
-void unalias(alias_t *tree, char **to_unalias)
+/*void unalias(alias_t *tree, char **to_unalias)
 {
 	int invalid = 0;
 
@@ -24,11 +23,11 @@ void unalias(alias_t *tree, char **to_unalias)
 		mysh->exit_status = 0;
 	else
 		mysh->exit_status = 1;
-}
+}*/
 
-void builtin_unalias(shell_t *mysh, char **command)
+void builtin_unalias(UNUSED shell_t *mysh, UNUSED char **command)
 {
-	if (command[1] == NULL) {
+	/*if (command[1] == NULL) {
 		puts("unalias: Too few arguments.");
 		mysh->exit_status = 1;
 		return;
@@ -36,5 +35,5 @@ void builtin_unalias(shell_t *mysh, char **command)
 		del_aliases(mysh->alias);
 		mysh->exit_status = 0;
 	} else
-		unalias(mysh->alias, command + sizeof(char *));
+		unalias(mysh->alias, command + sizeof(char *));*/
 }

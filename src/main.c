@@ -16,6 +16,8 @@ static void cleanup_shell(shell_t *mysh)
 		my_free_array((void **) mysh->env);
 	if (mysh->bg_process != NULL)
 		free(mysh->bg_process);
+	if (mysh->alias != NULL)
+		del_alias(mysh->alias);
 }
 
 int main(int ac, char **av, char **envp)

@@ -16,6 +16,9 @@ typedef struct alias{
 } alias_t;
 
 //alias.c
+alias_t *create_alias(const char *name, const char *value);
+void del_alias(alias_t *alias);
 void show_alias_tree(alias_t *tree);
+char *search_alias(alias_t *tree, const char *name);
 
 #endif
