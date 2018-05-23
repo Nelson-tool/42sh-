@@ -24,6 +24,7 @@ SRC_COM		=	$(COM_DIR)/tree.c			\
 			$(COM_DIR)/lexer/split_expressions.c	\
 			$(COM_DIR)/lexer/split_argv.c		\
 			$(COM_DIR)/parser/exec_tree.c		\
+			$(COM_DIR)/lexer/alias.c		\
 			$(COM_DIR)/parser/exec_command.c	\
 			$(COM_DIR)/parser/my_access.c		\
 			$(COM_DIR)/parser/my_exec.c

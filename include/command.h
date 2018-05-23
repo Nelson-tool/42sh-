@@ -41,12 +41,12 @@ void show_tree(node_t *tree);
 bool check_quotes(char *line);
 
 //lexer/get_command.c
-node_t *parse_line(char *line);
+node_t *parse_line(char *line, shell_t *mysh);
 node_t *get_command(shell_t *mysh);
 
 //lexer/ll_lexer.c
 const char *get_token(const char *expr, const char * const *tokens);
-node_t *ll_lexer(char *command);
+node_t *ll_lexer(char *command, shell_t *mysh);
 
 //lexer/split_node.c
 bool split_node(node_t *node, const char *token, const char * const *tokens);
@@ -61,6 +61,9 @@ char **rec_split_words(const char *str, int prof);
 bool is_null_command(node_t *node);
 bool is_op(token_t op, int nb, ...);
 bool check_syntax(node_t *node);
+
+//lexer/alias.c
+void alias(node_t *node, shell_t *mysh);
 
 //parser/exec_tree.c
 bool exec_tree(shell_t *mysh, node_t *tree);
