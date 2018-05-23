@@ -11,29 +11,72 @@
 #include <stdbool.h>
 #include "shell.h"
 
-/*void unalias(alias_t *tree, char **to_unalias)
+void relocate_alias(alias_t *orphan, alias_t *parent)
 {
-	int invalid = 0;
+	int diff = strcmp(parent->name, orphan->name);
 
-	for (int i = 0 ; to_unalias[i] ; ++i) {
-		if (!del_alias(tree, to_unalias[i]))
-			++invalid;
+	if (diff > 0) {
+		if (parent->lower == NULL)
+			parent->lower = orphan;
+		else
+			relocate_alias(orphan, parent->lower);
+	} else if (diff < 0) {
+		if (parent->higher == NULL)
+			parent->higher = orphan;
+		else
+			relocate_alias(orphan, parent->lower);
 	}
-	if (!invalid)
-		mysh->exit_status = 0;
-	else
-		mysh->exit_status = 1;
-}*/
+}
+
+bool unalias(alias_t *tree, alias_t **link_prev, char *to_unalias)
+{
+	int diff = strcmp(tree->name, to_unalias);
+
+	if (diff > 0) {
+		if (tree->lower == NULL)
+			return (false);
+		return (unalias(tree->lower, &tree->lower, to_unalias));
+	} else if (diff < 0) {
+		if (tree->higher == NULL)
+			return (false);
+		return (unalias(tree->higher, &tree->higher, to_unalias));
+	} else {
+		if (tree->lower == NULL && tree->higher == NULL)
+			*link_prev = NULL;
+		else if (tree->lower != NULL && tree->higher != NULL) {
+			*link_prev = tree->lower;
+			relocate_alias(tree->higher, tree->lower);
+		} else if (tree->lower == NULL)
+			*link_prev = tree->higher;
+		else
+			*link_prev = tree->lower;
+		free(tree->name);
+		free(tree->value);
+		free(tree);
+		return (true);
+	}
+}
 
 void builtin_unalias(UNUSED shell_t *mysh, UNUSED char **command)
 {
-	/*if (command[1] == NULL) {
-		puts("unalias: Too few arguments.");
+	int invalid = 0;
+
+	if (command[1] == NULL) {
+		ERROR_UNALIAS_TOO_FEW_ARG;
 		mysh->exit_status = 1;
 		return;
 	} else if (strcmp(command[1], "-a") == 0) {
-		del_aliases(mysh->alias);
+		del_alias(mysh->alias);
+		mysh->alias = NULL;
 		mysh->exit_status = 0;
-	} else
-		unalias(mysh->alias, command + sizeof(char *));*/
+	} else {
+		for (int i = 1 ; command[i] ; ++i) {
+			if (!unalias(mysh->alias, &mysh->alias, command[i]))
+				++invalid;
+		}
+		if (!invalid)
+			mysh->exit_status = 0;
+		else
+			mysh->exit_status = 1;
+	}
 }

@@ -106,4 +106,8 @@ printf("pwd: bad option: %s\n", opt)
 #define ERROR_FG_NO_JOBS		\
 puts("fg: no current job")
 
+//unalias
+#define ERROR_UNALIAS_TOO_FEW_ARG		\
+puts("unalias: Too few arguments")
+
 #endif

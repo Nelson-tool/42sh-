@@ -43,7 +43,7 @@ static const char * const DEF_ALIASES_NAMES[] =
 
 static const char * const DEF_ALIASES_VAL[] =
 {
-	"-",
+	"cd -",
 	"cd ..",
 	"cd ../..",
 	"cd ../../..",
