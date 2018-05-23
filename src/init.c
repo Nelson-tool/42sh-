@@ -80,6 +80,8 @@ void init_shell(shell_t *mysh, int ac, char **av, char **env)
 	if (mysh->env && get_pos_env(mysh->env, "PATH") == -1)
 		builtin_setenv(mysh, DEFAULT_PATH);
 	mysh->tty = isatty(STDIN_FILENO);
+	for (int i = 0 ; DEF_ALIASES_NAMES[i] ; ++i)
+		set_alias(mysh, DEF_ALIASES_NAMES[i], DEF_ALIASES_VAL[i]);
 	if (ac == 2 && strcmp(av[1], "-c") == 0) {
 		if (av[2] != NULL) {
 			tree = parse_line(av[2], mysh);

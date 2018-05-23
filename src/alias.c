@@ -22,13 +22,13 @@ alias_t *create_alias(const char *name, const char *value)
 	memset(alias, 0, sizeof(node_t));
 	alias->name = strdup(name);
 	if (alias->name == NULL) {
-		perror("strdup");
+		perror("malloc in strdup");
 		free(alias);
 		return (NULL);
 	}
 	alias->value = strdup(value);
 	if (alias->value == NULL) {
-		perror("strdup");
+		perror("malloc in strdup");
 		free(alias->name);
 		free(alias);
 		return (NULL);
@@ -49,24 +49,22 @@ void del_alias(alias_t *alias)
 
 void show_alias_tree(alias_t *tree)
 {
-	if (tree == NULL)
-		return;
 	if (tree->lower != NULL)
 		show_alias_tree(tree->lower);
+	printf("%s\t%s\n", tree->name, tree->value);
 	if (tree->higher != NULL)
 		show_alias_tree(tree->higher);
-	printf("%s=%s\n", tree->name, tree->value);
 }
 
 char *search_alias(alias_t *tree, const char *name)
 {
 	int diff = strcmp(tree->name, name);
 
-	if (diff < 0) {
+	if (diff > 0) {
 		if (tree->lower == NULL)
 			return (NULL);
 		return (search_alias(tree->lower, name));
-	} else if (diff > 0) {
+	} else if (diff < 0) {
 		if (tree->higher == NULL)
 			return (NULL);
 		return (search_alias(tree->higher, name));

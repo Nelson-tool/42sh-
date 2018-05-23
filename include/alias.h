@@ -8,6 +8,7 @@
 #ifndef ALIAS_H
 #define ALIAS_H
 
+/* TYPEDEFS */
 typedef struct alias{
 	char *name;
 	char *value;
@@ -15,10 +16,45 @@ typedef struct alias{
 	struct alias *higher;
 } alias_t;
 
+
+/* FUNCTIONS */
 //alias.c
 alias_t *create_alias(const char *name, const char *value);
 void del_alias(alias_t *alias);
 void show_alias_tree(alias_t *tree);
 char *search_alias(alias_t *tree, const char *name);
+
+
+/* CONSTANTS */
+static const char * const DEF_ALIASES_NAMES[] =
+{
+	"-",
+	"..",
+	"...",
+	"....",
+	".....",
+	"......",
+	"ll",
+	"l",
+	"vi",
+	"gaa",
+	NULL
+};
+
+static const char * const DEF_ALIASES_VAL[] =
+{
+	"-",
+	"cd ..",
+	"cd ../..",
+	"cd ../../..",
+	"cd ../../../..",
+	"cd ../../../../..",
+	"ls -l",
+	"ls -lah",
+	"vim",
+	"git add --all",
+	NULL
+};
+
 
 #endif
