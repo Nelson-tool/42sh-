@@ -37,6 +37,12 @@ void builtin_pwd(shell_t *mysh, char **command);
 //builtin_echo.c
 void builtin_echo(shell_t *mysh, char **command);
 
+//builtin_jobs.c
+void builtin_jobs(shell_t *mysh, char **command);
+
+//builtin_fg.c
+void builtin_fg(shell_t *mysh, char **command);
+
 /* CONSTANTS */
 static const builtin_t BUILTINS[] = {
 	{"exit", builtin_exit},
@@ -45,10 +51,12 @@ static const builtin_t BUILTINS[] = {
 	{"unsetenv", builtin_unsetenv},
 	{"cd", builtin_cd},
 	{"pwd", builtin_pwd},
-	{"echo", builtin_echo}
+	{"echo", builtin_echo},
+	{"jobs", builtin_jobs},
+	{"fg", builtin_fg}
 };
 
-static const int NB_BUILTINS = 7;
+static const int NB_BUILTINS = 9;
 
 static const char ECHO_SEQS[] = "abcefnrtv";
 static const int NB_ECHO_SEQS = 8;
@@ -84,5 +92,9 @@ printf("%s: Not a directory.\n", name)
 puts("pwd: too many arguments")
 #define ERROR_PWD_BAD_OPTION(opt)		\
 printf("pwd: bad option: %s\n", opt)
+
+//fg
+#define ERROR_FG_NO_JOBS		\
+puts("fg: no current job")
 
 #endif

@@ -17,11 +17,9 @@ void sigint_hdl(UNUSED int signum)
 {
 	int status = 0;
 
-	if (waitpid(-1, &status, WNOHANG) != -1) {
-		putchar('\n');
-		if (WIFSIGNALED(status))
-			display_prompt();
-	}
+	putchar('\n');
+	if (waitpid(-1, &status, WNOHANG) == -1)
+		display_prompt();
 }
 
 static void init_signal(void)

@@ -60,10 +60,10 @@ static void echo(char *arg, int *opt_l)
 
 void builtin_echo(UNUSED shell_t *mysh, char **command)
 {
-	int opt_l[NB_ECHO_SEQS + 1];
+	int opt_l[NB_ECHO_SEQS];
 	int i = 0;
 
-	memset(opt_l, 0, NB_ECHO_SEQS + 1);
+	memset(opt_l, 0, NB_ECHO_SEQS);
 	for (i = 1 ; command[i] != NULL ; i++) {
 		echo(command[i], opt_l);
 		if (command[i + 1] != NULL)

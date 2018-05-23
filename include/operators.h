@@ -26,7 +26,8 @@ typedef enum {
 	SEMICOLON,
 	AND,
 	OR,
-	PIPE_AND,
+	JOB_AND,
+	//PIPE_AND,
 	PIPE,
 	R_1_DBL_REDIR,
 	R_2_DBL_REDIR,
@@ -92,6 +93,9 @@ bool exec_l_dbl_redir(shell_t *mysh, node_t *left, node_t *right);
 //left_redirection.c
 bool exec_l_redir(shell_t *mysh, node_t *left, node_t *right);
 
+//job_and.c
+bool exec_job_and(shell_t *mysh, node_t *left, node_t *right);
+
 
 /* CONSTANTS */
 static const char * const TK_SEMICOLON[] = {
@@ -105,8 +109,13 @@ static const char * const TK_AND_OR[] = {
 	NULL
 };
 
+static const char * const TK_UNARY[] = {
+	"&",
+	NULL
+};
+
 static const char * const TK_PIPE_RIGHT_REDIR[] = {
-	"|&",
+	//"|&",
 	"|",
 	"1>>",
 	"2>>",
@@ -128,6 +137,7 @@ static const char * const TK_LEFT_REDIR[] = {
 static const char * const * const TOKENS_PRIOR[] = {
 	TK_SEMICOLON,
 	TK_AND_OR,
+	TK_UNARY,
 	TK_PIPE_RIGHT_REDIR,
 	TK_LEFT_REDIR,
 	NULL
@@ -137,7 +147,8 @@ static const char * const TOKENS[] = {
 	";",
 	"&&",
 	"||",
-	"|&",
+	"&",
+	//"|&",
 	"|",
 	"1>>",
 	"2>>",
@@ -156,7 +167,8 @@ static const error_pattern_op_t OP_ERRORS_PATTERNS[] = {
 	ERR_PAT_SEMICOLON,
 	ERR_PAT_SEMICOLON,
 	ERR_PAT_SEMICOLON,
-	ERR_PAT_PIPE,
+	ERR_PAT_SEMICOLON,
+	//ERR_PAT_PIPE,
 	ERR_PAT_PIPE,
 	ERR_PAT_RIGHT_REDIR,
 	ERR_PAT_RIGHT_REDIR,
@@ -167,7 +179,7 @@ static const error_pattern_op_t OP_ERRORS_PATTERNS[] = {
 	ERR_PAT_RIGHT_REDIR,
 	ERR_PAT_RIGHT_REDIR,
 	ERR_PAT_LEFT_REDIR,
-	ERR_PAT_LEFT_REDIR
+	ERR_PAT_LEFT_REDIR,
 };
 
 bool error_semicolon(UNUSED node_t *left, UNUSED node_t *right);
@@ -190,7 +202,8 @@ static bool (*const TOKENS_EXEC[])
 	exec_semicolon,
 	exec_and,
 	exec_or,
-	exec_pipe_and,
+	exec_job_and,
+	//exec_pipe_and,
 	exec_pipe,
 	exec_r_dbl_redir,
 	exec_r_err_dbl_redir,
@@ -201,7 +214,7 @@ static bool (*const TOKENS_EXEC[])
 	exec_r_and_redir,
 	exec_r_redir,
 	exec_l_dbl_redir,
-	exec_l_redir
+	exec_l_redir,
 };
 
 

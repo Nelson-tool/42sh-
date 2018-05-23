@@ -5,7 +5,7 @@
 ## Makefile for 42sh
 ##
 
-CC		=	gcc -g3
+CC		=	gcc
 
 RM		=	rm
 
@@ -41,6 +41,7 @@ SRC_OP		=	$(OP_DIR)/semicolon.c			\
 			$(OP_DIR)/right_and_redirection.c	\
 			$(OP_DIR)/left_dbl_redirection.c	\
 			$(OP_DIR)/left_redirection.c		\
+			$(OP_DIR)/job_and.c			\
 			$(OP_DIR)/error_patterns.c
 
 SRC_BUILT	=	$(BUILT_DIR)/builtin_exit.c		\
@@ -49,11 +50,14 @@ SRC_BUILT	=	$(BUILT_DIR)/builtin_exit.c		\
 			$(BUILT_DIR)/builtin_unsetenv.c		\
 			$(BUILT_DIR)/builtin_cd.c		\
 			$(BUILT_DIR)/builtin_pwd.c              \
-			$(BUILT_DIR)/builtin_echo.c             
+			$(BUILT_DIR)/builtin_echo.c             \
+			$(BUILT_DIR)/builtin_jobs.c		\
+			$(BUILT_DIR)/builtin_fg.c
 
 SRC		=	src/main.c		\
 			src/init.c		\
 			src/env.c		\
+			src/bg_process.c	\
 			src/shell.c
 
 OBJ		=	$(SRC:.c=.o)		\
