@@ -16,7 +16,7 @@ void builtin_jobs(shell_t *mysh, UNUSED char **command)
 	int i = 0;
 
 	while (cur) {
-		printf("[%d] %d\n", i + 1, cur->pid);
+		printf("[%d] %d %s\n", i + 1, cur->pid, cur->command);
 		++i;
 		cur = cur->next;
 	}

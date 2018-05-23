@@ -10,6 +10,7 @@
 
 typedef struct bg_process {
 	int pid;
+	char *command;
 	struct bg_process *next;
 } bg_process_t;
 

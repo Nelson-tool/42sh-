@@ -25,7 +25,7 @@ bool exec_job_and(shell_t *mysh, node_t *left, node_t *right)
 			tcsetpgrp(STDIN_FILENO, getppid());
 		exit(mysh->exit_status);
 	}
-	bg_process_add(&mysh->bg_process, child_pid);
+	bg_process_add(&mysh->bg_process, child_pid, left->expr);
 	exec_tree(mysh, right);
 	return (true);
 }
