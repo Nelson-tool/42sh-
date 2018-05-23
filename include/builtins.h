@@ -53,10 +53,11 @@ static const builtin_t BUILTINS[] = {
 	{"pwd", builtin_pwd},
 	{"echo", builtin_echo},
 	{"jobs", builtin_jobs},
-	{"fg", builtin_fg}
+	{"fg", builtin_fg},
+	{"unalias", builtin_unalias}
 };
 
-static const int NB_BUILTINS = 9;
+static const int NB_BUILTINS = 10;
 
 static const char ECHO_SEQS[] = "abcefnrtv";
 static const int NB_ECHO_SEQS = 8;

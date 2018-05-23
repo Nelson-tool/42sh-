@@ -10,7 +10,7 @@
 #include "my.h"
 #include "shell.h"
 
-node_t *create_alias(void)
+node_t *create_alias(const char *name, const char *value)
 {
 	alias_t *alias = malloc(sizeof(node_t));
 
@@ -18,9 +18,21 @@ node_t *create_alias(void)
 		perror("malloc");
 		return (NULL);
 	}
-	memset(new_node, 0, sizeof(node_t));
-	new_node->op = EXPR;
-	return (new_node);
+	memset(alias, 0, sizeof(node_t));
+	alias->name = strdup(alias);
+	if (alias->name == NULL) {
+		perror("strdup");
+		free(alias);
+		return (NULL);
+	}
+	alias->value = strdup(value);
+	if (alias->value == NULL) {
+		perror("strdup");
+		free(alias->name);
+		free(alias);
+		return (NULL);
+	}
+	return (alias);
 }
 
 bool create_abranchs(alias_t *alias)
@@ -37,34 +49,38 @@ bool create_abranchs(alias_t *alias)
 	return (true);
 }
 
-void del_tree(alias_t *alias)
+void del_aliases(alias_t *alias)
 {
 	if (alias->higher != NULL)
 		del_tree(alias->higher);
 	if (alias->lower != NULL)
 		del_tree(alias->lower);
+	free(alias->name);
+	free(alias->value);
 	free(alias);
 }
 
-void show_tree(node_t *tree)
+void show_alias_tree(alias_t *tree)
 {
-	if (tree == NULL)
-		return;
-	if (tree->op != EXPR) {
-		printf("op: %s\n", TOKENS[tree->op]);
-	} else {
-		printf("expr: ");
-		for (int i = 0 ; tree->expr[i] ; ++i) {
-			printf("%s ", tree->expr[i]);
-		}
-		putchar('\n');
-	}
-	if (tree->left != NULL) {
-		printf("left\n");
-		show_tree(tree->left);
-	}
-	if (tree->right != NULL) {
-		printf("right\n");
-		show_tree(tree->right);
-	}
+	if (tree->lower != NULL)
+		show_alias_tree(tree->lower);
+	if (tree->higher != NULL)
+		show_alias_tree(tree->higher);
+	printf("%s=%s\n", tree->name, tree->value);
+}
+
+char *search_alias(alias_t *tree, const char *name)
+{
+	int diff = strcmp(tree->name, name);
+
+	if (diff < 0) {
+		if (tree->lower == NULL)
+			return (NULL);
+		return (search_alias(tree->lower));
+	} else if (diff > 0) {
+		if (tree->higher == NULL)
+			return (NULL);
+		return (search_alias(tree->higher));
+	} else
+		return (tree->value);
 }
