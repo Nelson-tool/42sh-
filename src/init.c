@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <unistd.h>
+#include <string.h>
 #include <wait.h>
 #include "my.h"
 #include "shell.h"
@@ -16,11 +17,9 @@ void sigint_hdl(UNUSED int signum)
 {
 	int status = 0;
 
-	if (waitpid(-1, &status, WNOHANG) != -1) {
-		putchar('\n');
-		if (WIFSIGNALED(status))
-			display_prompt();
-	}
+	putchar('\n');
+	if (waitpid(-1, &status, WNOHANG) == -1)
+		display_prompt();
 }
 
 static void init_signal(void)
@@ -70,14 +69,25 @@ static void exec_config_file(shell_t *shell)
 		}
 	}
 	shell->stop = false;
+	fclose(conf);
 }
 
-void init_shell(shell_t *shell, char **env)
+void init_shell(shell_t *shell, int ac, char **av, char **env)
 {
+	node_t *tree = NULL;
+
 	shell->env = env_dup(env);
 	if (shell->env && get_pos_env(shell->env, "PATH") == -1)
 		builtin_setenv(shell, DEFAULT_PATH);
 	shell->tty = isatty(STDIN_FILENO);
-	exec_config_file(shell);
+	if (ac == 2 && strcmp(av[1], "-c") == 0) {
+		if (av[2] != NULL) {
+			tree = parse_line(av[2]);
+			exec_tree(shell, tree);
+			del_tree(tree);
+		}
+		shell->stop = true;
+	} else
+		exec_config_file(shell);
 	init_signal();
 }
