@@ -10,58 +10,54 @@
 #include "my.h"
 #include "shell.h"
 
-char **parse_alias(char **str)
+void replace_alias(alias_t *alias, const char *value)
 {
-	char **alias = malloc(sizeof(char *) * 2);
-	int i;
-	int x;
+	char *new_value = strdup(value);
 
-	if (alias == NULL)
-		return (NULL);
-	for (; alias[1][x] != '='; ++x);
-	alias[0] = malloc(sizeof(char) * x + 1);
-	if (alias[0] == NULL)
-		return (NULL);
-	for (i = x; alias[1][x]; ++x);
-	alias[1] = malloc(sizeof(char) * (x - i) + 1);
-	if (alias[1] == NULL)
-		return (NULL);
-	for (x = 0; x <= i; ++x)
-		alias[0][x] = str[1][x];
-	for (++x; str[1][x]; ++x)
-		alias[1][x] = str[1][x];
-	return (alias);			
-}
-
-void add_alias(char **str, shell_t *mysh)
-{
-	char **alias = parse_alias(str);
-
-	if (alias == NULL) {
+	if (new_value == NULL) {
 		perror("malloc");
 		return;
 	}
+	free(alias->value);
+	alias->value = new_value;
+}
+
+void add_alias(alias_t *alias, const char *name, const char *value)
+{
+	if (strcmp(alias->name, name) > 0) {
+		if (alias->higher != NULL)
+			add_alias(alias->higher, name, value);
+		else 
+			alias->higher = create_alias(name, value);
+	}
+	else if (strcmp(alias->name, name) < 0) {
+		if (alis->lower != NULL)	
+			add_alias(alias->lower, name, value);
+		else		
+			alias->higher = create_alias(name, value);
+	}
+	else if (strcmp(alias->name, name) == 0)
+		replace_alias(alias, value);			
+}
+
+void builtin_alias(char **str, shell_t *mysh)
+{
+	char *name;
+	char *value;
+	alias_t *alias;
+
+	if (str[1] == NULL)
+		show_alias_tree(alias);
+	else if (index(str[1], '=') == NULL)
+		show_alias(alias, str[1]);
+	name = str[1];
+	value = index(str[1], '=');
+	*value = '\0';
+	++value;
+	if (alias == NULL)
+		alias = create_alias(name, value);	
+	add_alias(name, value, alias);
 	if (strcmp(alias[0], alias->alias) == 0)
 		alias->cmd = strdup(alias[1]);			
 	return;
-}
-
-void find_alias(char **left, char **right, shell_t *mysh)
-{
-	if (strcmp(left[0], "alias") == 0)
-		add_alias(left, mysh);
-	if (strcmp(right[0], "alias") == 0)
-		add_alias(right, mysh);
-	return;
-}
-
-void alias(node_t *node, shell_t *mysh)
-{
-	if (node->left != NULL)
-		alias(node->left, mysh);
-	if (node->right != NULL)
-		alias(node->right, mysh);
-	if (node->op == EXPR)
-		find_alias(node->left->expr, node->right->expr, mysh);	
-	//replace_alias()
 }
