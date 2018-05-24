@@ -62,8 +62,8 @@ bool is_null_command(node_t *node);
 bool is_op(token_t op, int nb, ...);
 bool check_syntax(node_t *node);
 
-//lexer/alias.c
-void alias(node_t *node, shell_t *mysh);
+//lexer/apply_alias.c
+void apply_alias(node_t *tree, alias_t *alias);
 
 //parser/exec_tree.c
 bool exec_tree(shell_t *mysh, node_t *tree);

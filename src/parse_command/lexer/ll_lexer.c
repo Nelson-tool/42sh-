@@ -65,6 +65,6 @@ node_t *ll_lexer(char *command, shell_t *mysh)
 		del_tree(root);
 		return (NULL);
 	}
-	//alias(root, mysh);
+	apply_alias(root, mysh->alias);
 	return (root);
 }
