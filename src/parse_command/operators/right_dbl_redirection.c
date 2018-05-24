@@ -11,8 +11,8 @@
 #include "my.h"
 #include "shell.h"
 
-static bool setup_right_dbl_redir
-(int *save_stdout, int *out, const char *filename)
+static bool setup_right_dbl_redir(int *save_stdout,
+	int *out, const char *filename)
 {
 	*save_stdout = dup(STDOUT_FILENO);
 	if (*save_stdout == -1) {

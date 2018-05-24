@@ -18,12 +18,6 @@ typedef struct alias{
 
 
 /* FUNCTIONS */
-//alias.c
-//alias_t *create_alias(const char *name, const char *value);
-//void del_alias(alias_t *alias);
-//void show_alias_tree(alias_t *tree);
-//char *search_alias(alias_t *tree, const char *name);
-
 //set_alias.c
 alias_t *create_alias(const char *name, const char *value);
 void set_alias(shell_t *mysh, const char *name, const char *value);

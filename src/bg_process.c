@@ -21,7 +21,7 @@ bg_process_t *bg_process_add(bg_process_t **list, pid_t pid, char **command)
 		return (NULL);
 	}
 	new_elem->pid = pid;
-	new_elem->command = my_str_join(command, " ");
+	//new_elem->command = my_str_join(command, " ");
 	new_elem->next = NULL;
 	if (*list == NULL)
 		*list = new_elem;
@@ -41,7 +41,7 @@ void bg_process_del_all(bg_process_t *list)
 	while (list) {
 		to_del = list;
 		list = list->next;
-		free(to_del->command);
+		//free(to_del->command);
 		free(to_del);
 	}
 }
@@ -63,7 +63,7 @@ pid_t bg_process_pop_back(bg_process_t **list)
 	else
 		prev->next = NULL;
 	pid = cur->pid;
-	free(cur->command);
+	//free(cur->command);
 	free(cur);
 	return (pid);
 }
@@ -87,7 +87,7 @@ pid_t bg_process_pop(bg_process_t **list, int pos)
 	else
 		prev->next = cur->next;
 	pid = cur->pid;
-	free(cur->command);
+	//free(cur->command);
 	free(cur);
 	return (pid);
 }

@@ -56,7 +56,9 @@ SRC_BUILT	=	$(BUILT_DIR)/builtin_exit.c		\
 			$(BUILT_DIR)/builtin_jobs.c		\
 			$(BUILT_DIR)/builtin_fg.c		\
 			$(BUILT_DIR)/builtin_alias.c		\
-			$(BUILT_DIR)/builtin_unalias.c
+			$(BUILT_DIR)/builtin_unalias.c		\
+			$(BUILT_DIR)/builtin_true.c		\
+			$(BUILT_DIR)/builtin_false.c
 
 SRC_ALIAS	=	$(ALIAS_DIR)/set_alias.c	\
 			$(ALIAS_DIR)/find_alias.c	\
