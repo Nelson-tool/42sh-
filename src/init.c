@@ -19,7 +19,7 @@ void sigint_hdl(UNUSED int signum)
 
 	putchar('\n');
 	if (waitpid(-1, &status, WNOHANG) == -1)
-		display_prompt();
+		display_prompt(1);
 }
 
 static void init_signal(void)

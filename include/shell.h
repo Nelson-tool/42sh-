@@ -23,7 +23,7 @@ char **env_dup(char **envp);
 int get_pos_env(char **env, char *name);
 
 //shell.c
-void display_prompt(void);
+void display_prompt(int status);
 void shell(shell_t *mysh);
 
 #endif

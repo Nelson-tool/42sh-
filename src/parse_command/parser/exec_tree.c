@@ -16,7 +16,10 @@ bool exec_tree(shell_t *mysh, node_t *tree)
 		if (!TOKENS_EXEC[tree->op](mysh, tree->left, tree->right))
 			return (false);
 	}
-	else
+	else {
 		exec_command(mysh, tree->expr);
+		if (mysh->exit_status)
+			return (false);
+	}
 	return (true);
 }
