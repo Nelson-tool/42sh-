@@ -13,13 +13,12 @@
 
 alias_t *create_alias(const char *name, const char *value)
 {
-	alias_t *alias = malloc(sizeof(node_t));
+	alias_t *alias = calloc(1, sizeof(node_t));
 
 	if (alias == NULL) {
 		perror("malloc");
 		return (NULL);
 	}
-	memset(alias, 0, sizeof(node_t));
 	alias->name = strdup(name);
 	if (alias->name == NULL) {
 		perror("malloc in strdup");

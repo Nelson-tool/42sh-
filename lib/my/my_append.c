@@ -11,17 +11,19 @@
 
 char *my_append(char *str, char const *cat)
 {
-	int len_cat = 0;
-	int new_len = 0;
+	int len_cat;
+	int old_len;
+	int new_len;
 
 	if (str == NULL)
 		return (strdup(cat));
 	if (cat != NULL) {
+		old_len = strlen(str);
 		len_cat = strlen(cat);
-		new_len = strlen(str) + len_cat + 1;
+		new_len = old_len + len_cat + 1;
 		str = realloc(str, new_len);
 		if (str != NULL)
-			str = strcat(str, cat);
+			strcpy(str + old_len, cat);
 	}
 	return (str);
 }

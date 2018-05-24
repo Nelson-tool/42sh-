@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2018
 ** 42sh
 ** File description:
-** Displays the background processes.
+** Displays the current jobs.
 */
 
 #include <stdlib.h>
@@ -12,9 +12,11 @@
 
 void builtin_jobs(shell_t *mysh, UNUSED char **command)
 {
-	bg_process_t *cur = mysh->bg_process;
+	job_t *cur;
 	int i = 0;
 
+	job_cleanup(&mysh->jobs);
+	cur = mysh->jobs;
 	while (cur) {
 		printf("[%d] %d %s\n", i + 1, cur->pid, cur->command);
 		++i;

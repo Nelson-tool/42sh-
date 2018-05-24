@@ -14,10 +14,10 @@ static void cleanup_shell(shell_t *mysh)
 {
 	if (mysh->env != NULL)
 		my_free_array((void **) mysh->env);
-	if (mysh->bg_process != NULL)
-		free(mysh->bg_process);
+	if (mysh->jobs != NULL)
+		job_free(mysh->jobs);
 	if (mysh->alias != NULL)
-		del_alias(mysh->alias);
+		del_alias_tree(mysh->alias);
 }
 
 int main(UNUSED int ac, char **av, char **envp)

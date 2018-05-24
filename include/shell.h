@@ -16,16 +16,11 @@
 #include "command.h"
 #include "builtins.h"
 #include "alias.h"
+#include "job_control.h"
 
 //env.c
 char **env_dup(char **envp);
 int get_pos_env(char **env, char *name);
-
-//bg_process.c
-bg_process_t *bg_process_add(bg_process_t **list, pid_t pid, char **command);
-pid_t bg_process_pop_back(bg_process_t **list);
-pid_t bg_process_pop(bg_process_t **list, int pos);
-void bg_process_del_all(bg_process_t *list);
 
 //shell.c
 void display_prompt(void);

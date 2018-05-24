@@ -17,6 +17,8 @@ BUILT_DIR	=	src/builtins
 
 ALIAS_DIR	=	src/alias
 
+JOB_DIR		=	src/job_control
+
 SRC_COM		=	$(COM_DIR)/tree.c			\
 			$(COM_DIR)/lexer/get_command.c		\
 			$(COM_DIR)/lexer/check_quotes.c		\
@@ -65,17 +67,21 @@ SRC_ALIAS	=	$(ALIAS_DIR)/set_alias.c	\
 			$(ALIAS_DIR)/show_alias.c	\
 			$(ALIAS_DIR)/del_alias.c
 
+SRC_JOB		=	$(JOB_DIR)/job_add.c	\
+			$(JOB_DIR)/job_pop.c	\
+			$(JOB_DIR)/job_del.c
+
 SRC		=	src/main.c		\
 			src/init.c		\
 			src/env.c		\
-			src/bg_process.c	\
 			src/shell.c
 
 OBJ		=	$(SRC:.c=.o)		\
 			$(SRC_COM:.c=.o)	\
 			$(SRC_OP:.c=.o)		\
 			$(SRC_BUILT:.c=.o)	\
-			$(SRC_ALIAS:.c=.o)
+			$(SRC_ALIAS:.c=.o)	\
+			$(SRC_JOB:.c=.o)
 
 CPPFLAGS	+=	-I include
 
