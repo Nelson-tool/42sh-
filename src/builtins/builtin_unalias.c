@@ -11,7 +11,7 @@
 #include <stdbool.h>
 #include "shell.h"
 
-void relocate_alias(alias_t *orphan, alias_t *parent)
+static void relocate_alias(alias_t *orphan, alias_t *parent)
 {
 	int diff = strcmp(parent->name, orphan->name);
 
@@ -28,7 +28,7 @@ void relocate_alias(alias_t *orphan, alias_t *parent)
 	}
 }
 
-bool unalias(alias_t *tree, alias_t **link_prev, char *to_unalias)
+static bool unalias(alias_t *tree, alias_t **link_prev, char *to_unalias)
 {
 	int diff = strcmp(tree->name, to_unalias);
 
@@ -57,7 +57,7 @@ bool unalias(alias_t *tree, alias_t **link_prev, char *to_unalias)
 	}
 }
 
-void builtin_unalias(UNUSED shell_t *mysh, UNUSED char **command)
+void builtin_unalias(shell_t *mysh, char **command)
 {
 	int invalid = 0;
 

@@ -15,6 +15,8 @@ OP_DIR		=	src/parse_command/operators
 
 BUILT_DIR	=	src/builtins
 
+ALIAS_DIR	=	src/alias
+
 SRC_COM		=	$(COM_DIR)/tree.c			\
 			$(COM_DIR)/lexer/get_command.c		\
 			$(COM_DIR)/lexer/check_quotes.c		\
@@ -56,17 +58,22 @@ SRC_BUILT	=	$(BUILT_DIR)/builtin_exit.c		\
 			$(BUILT_DIR)/builtin_alias.c		\
 			$(BUILT_DIR)/builtin_unalias.c
 
+SRC_ALIAS	=	$(ALIAS_DIR)/set_alias.c	\
+			$(ALIAS_DIR)/find_alias.c	\
+			$(ALIAS_DIR)/show_alias.c	\
+			$(ALIAS_DIR)/del_alias.c
+
 SRC		=	src/main.c		\
 			src/init.c		\
 			src/env.c		\
-			src/alias.c		\
 			src/bg_process.c	\
 			src/shell.c
 
 OBJ		=	$(SRC:.c=.o)		\
 			$(SRC_COM:.c=.o)	\
 			$(SRC_OP:.c=.o)		\
-			$(SRC_BUILT:.c=.o)
+			$(SRC_BUILT:.c=.o)	\
+			$(SRC_ALIAS:.c=.o)
 
 CPPFLAGS	+=	-I include
 

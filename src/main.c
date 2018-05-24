@@ -20,11 +20,11 @@ static void cleanup_shell(shell_t *mysh)
 		del_alias(mysh->alias);
 }
 
-int main(int ac, char **av, char **envp)
+int main(UNUSED int ac, char **av, char **envp)
 {
 	shell_t mysh = {0};
 
-	init_shell(&mysh, ac, av, envp);
+	init_shell(&mysh, av, envp);
 	shell(&mysh);
 	cleanup_shell(&mysh);
 	return (mysh.exit_status);

@@ -72,7 +72,7 @@ static void exec_config_file(shell_t *mysh)
 	fclose(conf);
 }
 
-void init_shell(shell_t *mysh, int ac, char **av, char **env)
+void init_shell(shell_t *mysh, char **av, char **env)
 {
 	node_t *tree = NULL;
 
@@ -82,7 +82,7 @@ void init_shell(shell_t *mysh, int ac, char **av, char **env)
 	mysh->tty = isatty(STDIN_FILENO);
 	for (int i = 0 ; DEF_ALIASES_NAMES[i] ; ++i)
 		set_alias(mysh, DEF_ALIASES_NAMES[i], DEF_ALIASES_VAL[i]);
-	if (ac == 2 && strcmp(av[1], "-c") == 0) {
+	if (av[1] != NULL && strcmp(av[1], "-c") == 0) {
 		if (av[2] != NULL) {
 			tree = parse_line(av[2], mysh);
 			exec_tree(mysh, tree);
