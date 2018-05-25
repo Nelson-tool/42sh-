@@ -15,12 +15,10 @@ static bool error_setenv(char **command, int nb_arg)
 	if (nb_arg > 3) {
 		ERROR_SETENV_TOO_MANY_ARG;
 		return (true);
-	}
-	else if (!in_str(command[1][0], ALLOW ALUP)) {
+	} else if (!in_str(command[1][0], ALLOW ALUP)) {
 		ERROR_SETENV_FIRST_CHAR;
 		return (true);
-	}
-	else if (!my_str_is(command[1], ALPHA_NUM)) {
+	} else if (!my_str_is(command[1], ALPHA_NUM)) {
 		ERROR_SETENV_ALPHA_NUM;
 		return (true);
 	}

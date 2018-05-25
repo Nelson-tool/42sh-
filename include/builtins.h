@@ -110,6 +110,13 @@ puts("pwd: too many arguments")
 #define ERROR_PWD_BAD_OPTION(opt)		\
 printf("pwd: bad option: %s\n", opt)
 
+//jobs
+#define ERROR_JOBS_TOO_MANY_ARG		\
+puts("jobs: Too many arguments.")
+#define ERROR_JOBS_USAGE		\
+puts("Usage: jobs [ -l ].")
+
+
 //fg
 #define ERROR_FG_NO_JOBS		\
 puts("fg: no current job")

@@ -34,11 +34,11 @@ void builtin_jobs(shell_t *mysh, char **command)
 
 	if (command[1] != NULL) {
 		if (command[2] != NULL) {
-			puts("jobs: Too many arguments.");
+			ERROR_JOBS_TOO_MANY_ARG;
 			mysh->exit_status = 1;
 			return;
 		} else if (strcmp(command[1], "-l")) {
-			puts("Usage: jobs [ -l ].");
+			ERROR_JOBS_USAGE;
 			mysh->exit_status = 1;
 			return;
 		}

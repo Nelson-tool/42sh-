@@ -17,8 +17,7 @@ void builtin_exit(shell_t *mysh, char **command)
 		ERROR_EXIT_EXPRESSION;
 		mysh->exit_status = 1;
 		return;
-	}
-	else if (len == 2)
+	} else if (len == 2)
 		mysh->exit_status = atoi(command[1]) % 256;
 	mysh->stop = true;
 	puts("exit");
