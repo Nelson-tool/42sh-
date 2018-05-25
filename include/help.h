@@ -138,26 +138,114 @@ static const char HELP[] =
 	"hash [-lr] [-p pathname] [-dt] [name ...]           while COMMANDS; do COMMANDS; done\n"
 	"help [-dms] [pattern ...]                           { COMMANDS ; }\n";
 
-static char const * const TAB_HELP[] = {"echo",
-                             "help",
-                             "alias",
-                             "unalias",
-                             "true",
-                             "false",
-                             "pwd"
-        };
+static const char  HELP_ENV[] =
+	"env: env [-neE] [arg ...]\n"
+	"\tSet each NAME to VALUE in the environment and run COMMAND.\n"
+	"\tMandatory  arguments  to  long  options are mandatory for short options"
+	"\ttoo.\n" 
+	"\t-i, --ignore-environment\n"
+	"\tstart with an empty environment\n"
+	"\t-0, --null\n"
+	"\tend each output line with NUL, not newline\n"
+	"\t-u, --unset=NAME\n"
+	"\tremove variable from the environment\n"
+	"\t--help display this help and exit\n"
+	"\t--version\n"
+	"\toutput version information and exit\n"
+	"\tA mere - implies -i.  If no COMMAND, print the resulting environment.\n";
 
-static char const * const TAB_MSG[] = {HELP_ECHO,
-                                  HELP_HELP,
-                                  HELP_ALIAS,
-                                  HELP_UNALIAS,
-                                  HELP_TRUE,
-                                  HELP_FALSE,
-                                  HELP_PWD
-	};
+static const char HELP_SETENV[] =
+	"setenv: setenv [arg ...]\n"
+	"DESCRIPTION\n"
+	"\tThe  setenv()  function  adds the variable name to the environment with\n"
+	"\tthe value value, if name does not already exist.  If name does exist in\n"
+	"\tthe  environment,  then  its  value is changed to value if overwrite is\n"
+	"\tnonzero; if overwrite is zero, then the value of name  is  not  changed\n"
+	"\t(and setenv() returns a success status).  This function makes copies of\n";
 
-static const int NB_HELP = 7;
+static const char HELP_UNSETENV[] =
+	"unsetenv: setenv [arg ...]\n"
+	"DESCRIPTION\n"
+	"\tThe unsetenv() function deletes the variable name from the environment.\n"
+	"\tIf  name does not exist in the environment, then the function succeeds, \n"
+	"\tand the environment is unchanged.\n";
 
+static const char HELP_EXIT[] =
+	"exit: exit [n] Exit the shell.\n"
+	"Exits the shell with a status of N. If N is omitted, the exit status \n"
+	"\tis that of the last command executed.\n";
+static const char HELP_FG[] =
+	"fg: fg [job_spec] \n"
+	"\tMove job to the foreground.\n"
+	"\tPlace the job identified by JOB_SPEC in the foreground, making it the\n"
+	"\tcurrent job. If JOB_SPEC is not present, the shell's notion of the\n" 
+	"\tcurrent job is used.\n"
+	"\tExit Status: Status of command placed in foreground, or failure if an error occurs.\n";
+
+static const char HELP_JOBS[] =
+	"jobs: jobs [-lnprs] [jobspec ...] or jobs -x command [args]\n"
+	"\tDisplay status of jobs.\n"
+	"\tLists the active jobs. JOBSPEC restricts output to that job.\n"
+	"\tWithout options, the status of all active jobs is displayed.\n"
+	"\tOptions:\n"
+	"\t-l lists process IDs in addition to the normal information\n" 
+	"\t-n lists only processes that have changed status since the last notification\n"
+	"\t-p lists process IDs only\n" 
+	"\t-r restrict output to running jobs\n"
+	"\t-s restrict output to stopped jobs\n"
+	"If -x is supplied, COMMAND is run after all job specifications that \n"
+	"\tappear in ARGS have been replaced with the process ID of that job's process group leader.\n"
+	"\tExit Status: Returns success unless an invalid option is given or an error occurs.\n" 
+	"\tIf -x is used, returns the exit status of COMMAND.\n";
+
+static const char HELP_CD[] =
+	"cd: cd [-L|[-P [-e]] [-@]] [dir]\n"
+	"Change the shell working directory.\n"
+	"\tChange the current directory to DIR. The default DIR is the value of the \n"
+	"\tHOME shell variable.\n"
+	"\tThe variable CDPATH defines the search path for the directory containing\n" 
+	"\tDIR. Alternative directory names in CDPATH are separated by a colon (:)\n"
+	"\t. A null directory name is the same as the current directory. If DIR begins\n"
+	"\twith a slash (/), then CDPATH is not used.\n";
+
+static char const * const TAB_HELP[] = {
+	"echo",
+	"help",
+	"alias",
+	"unalias",
+	"true",
+	"false",
+	"pwd",
+	"env",
+	"setenv",
+	"unsetenv",
+	"exit",
+	"fg",
+	"jobs",
+	"cd",
+};
+
+static const char HELP_ERROR[] =
+	"42sh: help: No help topic corresponds to << %s >>.try with << help help>>\n";
+
+static char const * const TAB_MSG[] = {
+	HELP_ECHO,
+	HELP_HELP,
+	HELP_ALIAS,
+	HELP_UNALIAS,
+	HELP_TRUE,
+	HELP_FALSE,
+	HELP_PWD,
+	HELP_ENV,
+	HELP_SETENV,
+	HELP_UNSETENV,
+	HELP_EXIT,
+	HELP_FG,
+	HELP_JOBS,
+	HELP_CD,
+};
+
+static const int NB_HELP = 14;
 
 #endif
 
