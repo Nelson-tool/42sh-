@@ -28,6 +28,17 @@ static void relocate_alias(alias_t *orphan, alias_t *parent)
 	}
 }
 
+static void how_to_unalias(alias_t *tree, alias_t **link_prev)
+{
+	if (tree->lower == NULL && tree->higher == NULL)
+		*link_prev = NULL;
+	else if (tree->lower != NULL && tree->higher != NULL) {
+		*link_prev = tree->lower;
+		relocate_alias(tree->higher, tree->lower);
+	} else
+		*link_prev = (tree->lower) ? tree->lower : tree->higher;
+}
+
 static bool unalias(alias_t *tree, alias_t **link_prev, char *to_unalias)
 {
 	int diff = strcmp(tree->name, to_unalias);
@@ -41,18 +52,8 @@ static bool unalias(alias_t *tree, alias_t **link_prev, char *to_unalias)
 			return (false);
 		return (unalias(tree->higher, &tree->higher, to_unalias));
 	} else {
-		if (tree->lower == NULL && tree->higher == NULL)
-			*link_prev = NULL;
-		else if (tree->lower != NULL && tree->higher != NULL) {
-			*link_prev = tree->lower;
-			relocate_alias(tree->higher, tree->lower);
-		} else if (tree->lower == NULL)
-			*link_prev = tree->higher;
-		else
-			*link_prev = tree->lower;
-		free(tree->name);
-		free(tree->value);
-		free(tree);
+		how_to_unalias(tree, link_prev);
+		del_alias(tree);
 		return (true);
 	}
 }

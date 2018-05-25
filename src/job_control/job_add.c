@@ -12,25 +12,36 @@
 #include "my.h"
 #include "shell.h"
 
+static void add_expr_job_command(char **command, char **expr)
+{
+	char *join_expr = my_str_join(expr, " ");
+
+	if (join_expr == NULL)
+		return;
+	*command = my_append(*command, join_expr);
+	free(join_expr);
+}
+
+static void add_op_job_command(char **command, const char *token)
+{
+	int len = strlen(*command);
+
+	*command = realloc(*command, len + 3 + strlen(token));
+	if (*command == NULL) {
+		perror("realloc");
+		return;
+	}
+	sprintf(*command + len, " %s ", token);
+}
+
 static void get_job_command(node_t *tree, char **command)
 {
-	char *join_expr;
-	int len;
-
 	if (tree->left != NULL)
 		get_job_command(tree->left, command);
-	if (tree->op == EXPR) {
-		join_expr = my_str_join(tree->expr, " ");
-		if (join_expr != NULL) {
-			*command = my_append(*command, join_expr);
-			free(join_expr);
-		}
-	} else {
-		len = strlen(*command);
-		*command = realloc(*command, len + 3 + strlen(TOKENS[tree->op]));
-		if (*command != NULL)
-			sprintf(*command + len, " %s ", TOKENS[tree->op]);
-	}
+	if (tree->op == EXPR)
+		add_expr_job_command(command, tree->expr);
+	else
+		add_op_job_command(command, TOKENS[tree->op]);
 	if (tree->right != NULL)
 		get_job_command(tree->right, command);
 }
