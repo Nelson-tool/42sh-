@@ -15,6 +15,7 @@
 #include "init.h"
 #include "command.h"
 #include "builtins.h"
+#include "help.h"
 
 //env.c
 char **env_dup(char **envp);

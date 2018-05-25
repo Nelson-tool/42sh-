@@ -37,6 +37,12 @@ void builtin_pwd(shell_t *mysh, char **command);
 //builtin_echo.c
 void builtin_echo(shell_t *mysh, char **command);
 
+//builtins_help.c
+void builtin_help(shell_t *mysh, char **command);
+
+//builtin_help.c
+void builtin_help(shell_t *mysh, char **command);
+
 /* CONSTANTS */
 static const builtin_t BUILTINS[] = {
 	{"exit", builtin_exit},
@@ -45,10 +51,11 @@ static const builtin_t BUILTINS[] = {
 	{"unsetenv", builtin_unsetenv},
 	{"cd", builtin_cd},
 	{"pwd", builtin_pwd},
-	{"echo", builtin_echo}
+	{"echo", builtin_echo},
+	{"help", builtin_help}
 };
 
-static const int NB_BUILTINS = 7;
+static const int NB_BUILTINS = 8;
 
 static const char ECHO_SEQS[] = "abcefnrtv";
 static const int NB_ECHO_SEQS = 8;
