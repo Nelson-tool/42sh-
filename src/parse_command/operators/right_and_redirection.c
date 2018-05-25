@@ -39,8 +39,8 @@ static bool setup_err_redir(int *save_stderr, int fd)
 	return (true);
 }
 
-static bool setup_right_and_redir
-(int *save_stdout, int *save_stderr, int *fd, const char *filename)
+static bool setup_right_and_redir(int *save_stdout,
+	int *save_stderr, int *fd, const char *filename)
 {
 	*fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, REG_RIGHTS);
 	if (*fd == -1) {

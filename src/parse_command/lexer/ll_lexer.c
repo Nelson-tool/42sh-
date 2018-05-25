@@ -48,7 +48,7 @@ static bool find_token(node_t *node, const char * const *tokens)
 	return (true);
 }
 
-node_t *ll_lexer(char *command)
+node_t *ll_lexer(char *command, shell_t *mysh)
 {
 	node_t *root = create_node();
 
@@ -65,5 +65,6 @@ node_t *ll_lexer(char *command)
 		del_tree(root);
 		return (NULL);
 	}
+	apply_alias(root, mysh->alias);
 	return (root);
 }

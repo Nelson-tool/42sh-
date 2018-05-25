@@ -12,7 +12,7 @@
 #include "my.h"
 #include "shell.h"
 
-void display_prompt(void)
+void display_prompt(int status)
 {
 	char path[PATH_MAX + 1] = "";
 	char *dir;
@@ -22,7 +22,9 @@ void display_prompt(void)
 		return;
 	}
 	dir = rindex(path, '/');
-	dprintf(STDOUT_FILENO, "(42sh %s)$ ", (dir == path) ? dir : dir + 1);
+	if (dir != path)
+		++dir;
+	dprintf(STDOUT_FILENO, "%d -> (42sh %s)$ ", status, dir);
 }
 
 void shell(shell_t *mysh)
@@ -31,7 +33,7 @@ void shell(shell_t *mysh)
 
 	while (!mysh->stop) {
 		if (mysh->tty)
-			display_prompt();
+			display_prompt(mysh->exit_status);
 		tree = get_command(mysh);
 		if (tree != NULL) {
 			exec_tree(mysh, tree);

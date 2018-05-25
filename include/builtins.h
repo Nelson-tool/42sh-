@@ -36,6 +36,25 @@ void builtin_pwd(shell_t *mysh, char **command);
 
 //builtin_echo.c
 void builtin_echo(shell_t *mysh, char **command);
+char *rewrite_arg(char *arg, int *opt_l);
+
+//builtin_jobs.c
+void builtin_jobs(shell_t *mysh, char **command);
+
+//builtin_fg.c
+void builtin_fg(shell_t *mysh, char **command);
+
+//builtin_alias.c
+void builtin_alias(shell_t *mysh, char **command);
+
+//builtin_unalias.c
+void builtin_unalias(shell_t *mysh, char **command);
+
+//builtin_true.c
+void builtin_true(shell_t *mysh, char **command);
+
+//builtin_false.c
+void builtin_false(shell_t *mysh, char **command);
 
 //builtins_help.c
 void builtin_help(shell_t *mysh, char **command);
@@ -52,10 +71,16 @@ static const builtin_t BUILTINS[] = {
 	{"cd", builtin_cd},
 	{"pwd", builtin_pwd},
 	{"echo", builtin_echo},
-	{"help", builtin_help}
+	{"help", builtin_help},
+	{"jobs", builtin_jobs},
+	{"fg", builtin_fg},
+	{"alias", builtin_alias},
+	{"unalias", builtin_unalias},
+	{"true", builtin_true},
+	{"false", builtin_false}
 };
 
-static const int NB_BUILTINS = 8;
+static const int NB_BUILTINS = 14;
 
 static const char ECHO_SEQS[] = "abcefnrtv";
 static const int NB_ECHO_SEQS = 8;
@@ -91,5 +116,17 @@ printf("%s: Not a directory.\n", name)
 puts("pwd: too many arguments")
 #define ERROR_PWD_BAD_OPTION(opt)		\
 printf("pwd: bad option: %s\n", opt)
+
+//fg
+#define ERROR_FG_NO_JOBS		\
+puts("fg: no current job")
+#define ERROR_FG_NO_SUCH_JOB(job)		\
+printf("fg: %s: no such job\n", job)
+#define ERROR_FG_JOB_NOT_FOUND(job)		\
+printf("fg: job not found: %s\n", job)
+
+//unalias
+#define ERROR_UNALIAS_TOO_FEW_ARG		\
+puts("unalias: Too few arguments")
 
 #endif
