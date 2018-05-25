@@ -13,14 +13,14 @@
 
 void builtin_help(UNUSED shell_t *mysh, char **command)
 {
-	int i = 0;
-	
-	for (; i < NB_HELP && command[1] != NULL; i++) {
+	if (command[1] == NULL) {
+		printf(HELP);
+		return;
+	}
+	for (int i = 0 ; i < NB_HELP ; i++) {
 		if (strcmp(command[1], TAB_HELP[i]) == 0) {
 			printf(TAB_MSG[i]);
 			break;
 		}
 	}
-	if (!command[1])
-		printf(HELP);
 }

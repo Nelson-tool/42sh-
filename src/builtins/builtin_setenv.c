@@ -15,7 +15,8 @@ static bool error_setenv(char **command, int nb_arg)
 	if (nb_arg > 3) {
 		ERROR_SETENV_TOO_MANY_ARG;
 		return (true);
-	} else if (!in_str(command[1][0], ALLOW ALUP)) {
+	}
+	if (!in_str(command[1][0], ALLOW ALUP)) {
 		ERROR_SETENV_FIRST_CHAR;
 		return (true);
 	} else if (!my_str_is(command[1], ALPHA_NUM)) {
@@ -86,8 +87,7 @@ void builtin_setenv(shell_t *mysh, char **command)
 	if (nb_arg == 1) {
 		builtin_env(mysh, command);
 		return;
-	}
-	else if (error_setenv(command, nb_arg)) {
+	} else if (error_setenv(command, nb_arg)) {
 		mysh->exit_status = 1;
 		return;
 	}

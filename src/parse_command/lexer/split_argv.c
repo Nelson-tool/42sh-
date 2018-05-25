@@ -57,7 +57,7 @@ static char *dup_arg(const char *str, int len)
 			arg[real_len++] = str[++i];
 		} else if (in_str(str[i], QUOTES) && !ESCAPED(str, i)) {
 			i += dup_arg_in_quotes(str + i, arg, &real_len);
-		} else if ((!in_str(str[i], SEPS)) || ESCAPED(str, i))
+		} else if (!in_str(str[i], SEPS) || ESCAPED(str, i))
 			arg[real_len++] = str[i];
 	}
 	arg[real_len] = '\0';

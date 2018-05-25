@@ -6,12 +6,12 @@
 */
 
 #ifndef HELP_H
-#define HELP_H_
+#define HELP_H
 
 static const char HELP_S_ECHO[] = " echo: echo [-neE] [arg ...]";
 static const char HELP_S_HELP[] = " help: help [-dms] [pattern ...]";
 
-static const char HELP_ECHO[] = 
+static const char HELP_ECHO[] =
 	"echo: echo [-neE] [arg ...]\n"
 	"\tWrite arguments to the standard output.\n"
 	"\tDisplay the ARGs, separated by a single space character and followed by a "
@@ -67,7 +67,7 @@ static const char HELP_UNALIAS[] =
 static const char HELP_TRUE[] =
 	"help true\n"
 	"\ttrue: true\n"
-	"\tReturn a successful result.\n"	
+	"\tReturn a successful result.\n"
 	"\tExit Status:\n"
 	"\tAlways succeeds.\n";
 
@@ -78,7 +78,6 @@ static const char HELP_FALSE[] =
 	"\tAlways fails.\n";
 
 static const char HELP_PWD[] =
-
 	"pwd: pwd [-LP]\n"
 	"\tPrint the name of the current working directory.\n"
 	"\tOptions:\n"
@@ -91,14 +90,13 @@ static const char HELP_PWD[] =
 	"\tcannot be read.\n";
 
 static const char HELP[] =
-	"GNU bash, version 4.4.12(1)-release (x86_64-redhat-linux-gnu)\n"
+	"42sg, version 42.42.42(42)-release (x86_64-redhat-linux-42sh)\n"
 	"These shell commands are defined internally.  Type `help' to see this list.\n"
 	"Type `help name' to find out more about the function `name'.\n"
-	"Use `info bash' to find out more about the shell in general.\n"
-	"Use `man -k' or `info' to find out more about commands not in this list. \n"
-	
+	"Use `man -k' to find out more about commands not in this list. \n"
+	"\n"
 	"A star (*) next to a name means that the command is disabled.\n"
-	
+	"\n"
 	"job_spec [&]                                        history [-c] [-d offset] [n] or history -anrw [f>\n"
 	"(( expression ))                                    if COMMANDS; then COMMANDS; [ elif COMMANDS; the>\n"
 	". filename [arguments]                              jobs [-lnprs] [jobspec ...] or jobs -x command [>\n"
@@ -138,26 +136,26 @@ static const char HELP[] =
 	"hash [-lr] [-p pathname] [-dt] [name ...]           while COMMANDS; do COMMANDS; done\n"
 	"help [-dms] [pattern ...]                           { COMMANDS ; }\n";
 
-static char const * const TAB_HELP[] = {"echo",
-                             "help",
-                             "alias",
-                             "unalias",
-                             "true",
-                             "false",
-                             "pwd"
-        };
+static char const * const TAB_HELP[] = {
+	"echo",
+	"help",
+	"alias",
+	"unalias",
+	"true",
+	"false",
+	"pwd"
+};
 
-static char const * const TAB_MSG[] = {HELP_ECHO,
-                                  HELP_HELP,
-                                  HELP_ALIAS,
-                                  HELP_UNALIAS,
-                                  HELP_TRUE,
-                                  HELP_FALSE,
-                                  HELP_PWD
-	};
+static char const * const TAB_MSG[] = {
+	HELP_ECHO,
+	HELP_HELP,
+	HELP_ALIAS,
+	HELP_UNALIAS,
+	HELP_TRUE,
+	HELP_FALSE,
+	HELP_PWD
+};
 
 static const int NB_HELP = 7;
 
-
 #endif
-

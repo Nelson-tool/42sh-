@@ -46,7 +46,8 @@ static bool setup_right_and_redir(int *save_stdout,
 	if (*fd == -1) {
 		perror("open");
 		return (false);
-	} else if (!setup_out_redir(save_stdout, *fd)) {
+	}
+	if (!setup_out_redir(save_stdout, *fd)) {
 		if (close(*fd) == -1)
 			perror("close");
 		return (false);
