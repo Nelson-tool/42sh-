@@ -36,6 +36,7 @@ void builtin_pwd(shell_t *mysh, char **command);
 
 //builtin_echo.c
 void builtin_echo(shell_t *mysh, char **command);
+char *rewrite_arg(char *arg, int *opt_l);
 
 /* CONSTANTS */
 static const builtin_t BUILTINS[] = {
