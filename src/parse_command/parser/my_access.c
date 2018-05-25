@@ -78,9 +78,7 @@ static bool access_path(char **env, char *name, char **path)
 
 bool my_access(shell_t *mysh, char *name, char **path)
 {
-	if (name == NULL)
-		return (false);
-	else if (in_str('/', name))
+	if (in_str('/', name))
 		return (access_direct(mysh, name, path));
 	else if (access_path(mysh->env, name, path))
 		return (true);

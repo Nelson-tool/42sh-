@@ -13,6 +13,8 @@
 printf("%s: Command not found.\n", name)
 #define ERROR_PERMISSON(name)		\
 printf("%s: Permission denied.\n", name)
+#define ERROR_WRONG_ARCH(path)		\
+printf("%s: Exec format error. Wrong Architecture.\n", path)
 
 //system call
 #define ERROR_NO_FILE(name)		\

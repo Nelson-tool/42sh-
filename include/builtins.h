@@ -59,8 +59,8 @@ void builtin_false(shell_t *mysh, char **command);
 //builtins_help.c
 void builtin_help(shell_t *mysh, char **command);
 
-//builtin_help.c
-void builtin_help(shell_t *mysh, char **command);
+//builtin_repeat.c
+void builtin_repeat(shell_t *mysh, char **command);
 
 /* CONSTANTS */
 static const builtin_t BUILTINS[] = {
@@ -77,10 +77,11 @@ static const builtin_t BUILTINS[] = {
 	{"alias", builtin_alias},
 	{"unalias", builtin_unalias},
 	{"true", builtin_true},
-	{"false", builtin_false}
+	{"false", builtin_false},
+	{"repeat", builtin_repeat}
 };
 
-static const int NB_BUILTINS = 14;
+static const int NB_BUILTINS = 15;
 
 static const char ECHO_SEQS[] = "abcefnrtv";
 static const int NB_ECHO_SEQS = 8;
@@ -116,6 +117,12 @@ printf("%s: Not a directory.\n", name)
 puts("pwd: too many arguments")
 #define ERROR_PWD_BAD_OPTION(opt)		\
 printf("pwd: bad option: %s\n", opt)
+
+//jobs
+#define ERROR_JOBS_TOO_MANY_ARG		\
+puts("jobs: Too many arguments.")
+#define ERROR_JOBS_USAGE		\
+puts("Usage: jobs [ -l ].")
 
 //fg
 #define ERROR_FG_NO_JOBS		\

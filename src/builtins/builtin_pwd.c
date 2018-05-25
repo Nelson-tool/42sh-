@@ -18,8 +18,7 @@ void builtin_pwd(shell_t *mysh, UNUSED char **command)
 		ERROR_PWD_TOO_MANY_ARG;
 		mysh->exit_status = 1;
 		return;
-	}
-	if (getcwd(cwd, PATH_MAX) == NULL) {
+	} else if (getcwd(cwd, PATH_MAX) == NULL) {
 		perror("getcwd");
 		mysh->exit_status = 1;
 		return;

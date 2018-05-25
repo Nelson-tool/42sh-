@@ -14,9 +14,9 @@
 bool split_expressions(node_t *node)
 {
 	if (node->left != NULL && !split_expressions(node->left))
-			return (false);
+		return (false);
 	if (node->right != NULL && !split_expressions(node->right))
-			return (false);
+		return (false);
 	if (node->op == EXPR) {
 		node->expr = rec_split_words(node->str, 0);
 		if (node->expr == NULL) {

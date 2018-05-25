@@ -24,7 +24,7 @@ void exec_command(shell_t *mysh, char **command)
 			return;
 		}
 	}
-	if (my_access(mysh, command[0], &path)) {
+	if (command[0] && my_access(mysh, command[0], &path)) {
 		my_exec(mysh, path, command);
 		free(path);
 	}

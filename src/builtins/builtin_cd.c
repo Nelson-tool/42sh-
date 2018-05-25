@@ -21,7 +21,8 @@ static bool error_cd(char **command)
 	if (nb_arg > 2) {
 		ERROR_CD_TOO_MUCH_ARG;
 		return (true);
-	} else if (stat(command[1], &s)) {
+	}
+	if (stat(command[1], &s)) {
 		ERROR_NO_FILE(command[1]);
 		return (true);
 	} else if (!S_ISDIR(s.st_mode)) {

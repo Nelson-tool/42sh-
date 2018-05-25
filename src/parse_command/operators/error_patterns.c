@@ -35,7 +35,8 @@ bool error_r_redir(node_t *left, node_t *right)
 	} else if (is_null_command(left)) {
 		ERROR_NULL_COMMAND;
 		return (true);
-	} else if (OP_ERRORS_PATTERNS[right->op] == ERR_PAT_PIPE ||
+	}
+	if (OP_ERRORS_PATTERNS[right->op] == ERR_PAT_PIPE ||
 		OP_ERRORS_PATTERNS[right->op] == ERR_PAT_RIGHT_REDIR ||
 		OP_ERRORS_PATTERNS[right->op] == ERR_PAT_LEFT_REDIR) {
 		ERROR_AMBIGUOUS_OUTPUT;
@@ -52,7 +53,8 @@ bool error_l_redir(node_t *left, node_t *right)
 	} else if (is_null_command(left)) {
 		ERROR_NULL_COMMAND;
 		return (true);
-	} else if (OP_ERRORS_PATTERNS[right->op] == ERR_PAT_RIGHT_REDIR ||
+	}
+	if (OP_ERRORS_PATTERNS[right->op] == ERR_PAT_RIGHT_REDIR ||
 		OP_ERRORS_PATTERNS[right->op] == ERR_PAT_LEFT_REDIR) {
 		ERROR_AMBIGUOUS_INPUT;
 		return (true);

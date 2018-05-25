@@ -9,6 +9,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <sys/wait.h>
+#include <errno.h>
 #include "my.h"
 #include "shell.h"
 
@@ -34,7 +35,10 @@ void my_exec(shell_t *mysh, char *path, char **command)
 	}
 	if (child_pid == 0) {
 		execve(path, command, mysh->env);
-		perror("execve");
+		if (errno == ENOEXEC)
+			ERROR_WRONG_ARCH(path);
+		else
+			perror("execve");
 		exit(1);
 	}
 	waitpid(child_pid, &mysh->exit_status, 0);

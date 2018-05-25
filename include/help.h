@@ -6,12 +6,12 @@
 */
 
 #ifndef HELP_H
-#define HELP_H_
+#define HELP_H
 
 static const char HELP_S_ECHO[] = " echo: echo [-neE] [arg ...]";
 static const char HELP_S_HELP[] = " help: help [-dms] [pattern ...]";
 
-static const char HELP_ECHO[] = 
+static const char HELP_ECHO[] =
 	"echo: echo [-neE] [arg ...]\n"
 	"\tWrite arguments to the standard output.\n"
 	"\tDisplay the ARGs, separated by a single space character and followed by a "
@@ -67,7 +67,7 @@ static const char HELP_UNALIAS[] =
 static const char HELP_TRUE[] =
 	"help true\n"
 	"\ttrue: true\n"
-	"\tReturn a successful result.\n"	
+	"\tReturn a successful result.\n"
 	"\tExit Status:\n"
 	"\tAlways succeeds.\n";
 
@@ -78,7 +78,6 @@ static const char HELP_FALSE[] =
 	"\tAlways fails.\n";
 
 static const char HELP_PWD[] =
-
 	"pwd: pwd [-LP]\n"
 	"\tPrint the name of the current working directory.\n"
 	"\tOptions:\n"
@@ -91,14 +90,13 @@ static const char HELP_PWD[] =
 	"\tcannot be read.\n";
 
 static const char HELP[] =
-	"GNU bash, version 4.4.12(1)-release (x86_64-redhat-linux-gnu)\n"
+	"42sg, version 42.42.42(42)-release (x86_64-redhat-linux-42sh)\n"
 	"These shell commands are defined internally.  Type `help' to see this list.\n"
 	"Type `help name' to find out more about the function `name'.\n"
-	"Use `info bash' to find out more about the shell in general.\n"
-	"Use `man -k' or `info' to find out more about commands not in this list. \n"
-	
+	"Use `man -k' to find out more about commands not in this list. \n"
+	"\n"
 	"A star (*) next to a name means that the command is disabled.\n"
-	
+	"\n"
 	"job_spec [&]                                        history [-c] [-d offset] [n] or history -anrw [f>\n"
 	"(( expression ))                                    if COMMANDS; then COMMANDS; [ elif COMMANDS; the>\n"
 	". filename [arguments]                              jobs [-lnprs] [jobspec ...] or jobs -x command [>\n"
@@ -142,7 +140,7 @@ static const char  HELP_ENV[] =
 	"env: env [-neE] [arg ...]\n"
 	"\tSet each NAME to VALUE in the environment and run COMMAND.\n"
 	"\tMandatory  arguments  to  long  options are mandatory for short options"
-	"\ttoo.\n" 
+	"\ttoo.\n"
 	"\t-i, --ignore-environment\n"
 	"\tstart with an empty environment\n"
 	"\t-0, --null\n"
@@ -178,7 +176,7 @@ static const char HELP_FG[] =
 	"fg: fg [job_spec] \n"
 	"\tMove job to the foreground.\n"
 	"\tPlace the job identified by JOB_SPEC in the foreground, making it the\n"
-	"\tcurrent job. If JOB_SPEC is not present, the shell's notion of the\n" 
+	"\tcurrent job. If JOB_SPEC is not present, the shell's notion of the\n"
 	"\tcurrent job is used.\n"
 	"\tExit Status: Status of command placed in foreground, or failure if an error occurs.\n";
 
@@ -188,14 +186,14 @@ static const char HELP_JOBS[] =
 	"\tLists the active jobs. JOBSPEC restricts output to that job.\n"
 	"\tWithout options, the status of all active jobs is displayed.\n"
 	"\tOptions:\n"
-	"\t-l lists process IDs in addition to the normal information\n" 
+	"\t-l lists process IDs in addition to the normal information\n"
 	"\t-n lists only processes that have changed status since the last notification\n"
-	"\t-p lists process IDs only\n" 
+	"\t-p lists process IDs only\n"
 	"\t-r restrict output to running jobs\n"
 	"\t-s restrict output to stopped jobs\n"
 	"If -x is supplied, COMMAND is run after all job specifications that \n"
 	"\tappear in ARGS have been replaced with the process ID of that job's process group leader.\n"
-	"\tExit Status: Returns success unless an invalid option is given or an error occurs.\n" 
+	"\tExit Status: Returns success unless an invalid option is given or an error occurs.\n"
 	"\tIf -x is used, returns the exit status of COMMAND.\n";
 
 static const char HELP_CD[] =
@@ -203,7 +201,7 @@ static const char HELP_CD[] =
 	"Change the shell working directory.\n"
 	"\tChange the current directory to DIR. The default DIR is the value of the \n"
 	"\tHOME shell variable.\n"
-	"\tThe variable CDPATH defines the search path for the directory containing\n" 
+	"\tThe variable CDPATH defines the search path for the directory containing\n"
 	"\tDIR. Alternative directory names in CDPATH are separated by a colon (:)\n"
 	"\t. A null directory name is the same as the current directory. If DIR begins\n"
 	"\twith a slash (/), then CDPATH is not used.\n";
@@ -248,4 +246,3 @@ static char const * const TAB_MSG[] = {
 static const int NB_HELP = 14;
 
 #endif
-
