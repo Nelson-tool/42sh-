@@ -56,6 +56,12 @@ void builtin_true(shell_t *mysh, char **command);
 //builtin_false.c
 void builtin_false(shell_t *mysh, char **command);
 
+//builtins_help.c
+void builtin_help(shell_t *mysh, char **command);
+
+//builtin_help.c
+void builtin_help(shell_t *mysh, char **command);
+
 /* CONSTANTS */
 static const builtin_t BUILTINS[] = {
 	{"exit", builtin_exit},
@@ -65,6 +71,7 @@ static const builtin_t BUILTINS[] = {
 	{"cd", builtin_cd},
 	{"pwd", builtin_pwd},
 	{"echo", builtin_echo},
+	{"help", builtin_help},
 	{"jobs", builtin_jobs},
 	{"fg", builtin_fg},
 	{"alias", builtin_alias},
@@ -73,7 +80,7 @@ static const builtin_t BUILTINS[] = {
 	{"false", builtin_false}
 };
 
-static const int NB_BUILTINS = 13;
+static const int NB_BUILTINS = 14;
 
 static const char ECHO_SEQS[] = "abcefnrtv";
 static const int NB_ECHO_SEQS = 8;

@@ -15,6 +15,7 @@
 #include "init.h"
 #include "command.h"
 #include "builtins.h"
+#include "help.h"
 #include "alias.h"
 #include "job_control.h"
 

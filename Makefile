@@ -57,6 +57,7 @@ SRC_BUILT	=	$(BUILT_DIR)/builtin_exit.c		\
 			$(BUILT_DIR)/builtin_pwd.c              \
 			$(BUILT_DIR)/builtin_echo.c             \
 			$(BUILT_DIR)/builtin_echo_opts.c        \
+			$(BUILT_DIR)/builtin_help.c		\
 			$(BUILT_DIR)/builtin_jobs.c		\
 			$(BUILT_DIR)/builtin_fg.c		\
 			$(BUILT_DIR)/builtin_alias.c		\
