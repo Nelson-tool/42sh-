@@ -14,7 +14,7 @@
 void builtin_help(UNUSED shell_t *mysh, char **command)
 {
 	int i = 0;
-	
+
 	if (command[1] == NULL) {
 		printf(HELP);
 		return;
@@ -24,10 +24,5 @@ void builtin_help(UNUSED shell_t *mysh, char **command)
 			printf(TAB_MSG[i]);
 			break;
 		}
-		
-	}
-	for (; command[1] != NULL && command[1] != TAB_HELP[i] ; i++){
-	        printf("ok\n");
-		return;
 	}
 }
