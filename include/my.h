@@ -60,6 +60,8 @@ __attribute__((nonnull, warn_unused_result))
 char **my_str_split(const char *str, const char *seps);
 __attribute__((nonnull, warn_unused_result))
 int my_strlen_tab(void * const *arr);
+__attribute__((nonnull, warn_unused_result))
+char *my_str_join(char **arr, const char *joint);
 
 //my_str -> write
 __attribute__((nonnull))

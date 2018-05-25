@@ -11,8 +11,8 @@
 #include "my.h"
 #include "shell.h"
 
-static bool setup_right_err_redir
-(int *save_stderr, int *err, const char *filename)
+static bool setup_right_err_redir(int *save_stderr,
+	int *err, const char *filename)
 {
 	*save_stderr = dup(STDERR_FILENO);
 	if (*save_stderr == -1) {

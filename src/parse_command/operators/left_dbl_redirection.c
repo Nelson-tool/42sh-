@@ -29,8 +29,8 @@ static void get_input_to_redirect(const char *stop, int *fds)
 	exit(0);
 }
 
-static bool use_redirected_input
-(shell_t *mysh, node_t *left, int *pipefd, pid_t child_pid)
+static bool use_redirected_input(shell_t *mysh,
+	node_t *left, int *pipefd, pid_t child_pid)
 {
 	int save_stdin = dup(STDIN_FILENO);
 

@@ -5,7 +5,7 @@
 ## Makefile for 42sh
 ##
 
-CC		=	gcc -g3
+CC		=	gcc
 
 RM		=	rm
 
@@ -15,6 +15,10 @@ OP_DIR		=	src/parse_command/operators
 
 BUILT_DIR	=	src/builtins
 
+ALIAS_DIR	=	src/alias
+
+JOB_DIR		=	src/job_control
+
 SRC_COM		=	$(COM_DIR)/tree.c			\
 			$(COM_DIR)/lexer/get_command.c		\
 			$(COM_DIR)/lexer/check_quotes.c		\
@@ -23,6 +27,7 @@ SRC_COM		=	$(COM_DIR)/tree.c			\
 			$(COM_DIR)/lexer/check_syntax.c		\
 			$(COM_DIR)/lexer/split_expressions.c	\
 			$(COM_DIR)/lexer/split_argv.c		\
+			$(COM_DIR)/lexer/apply_alias.c		\
 			$(COM_DIR)/parser/exec_tree.c		\
 			$(COM_DIR)/parser/exec_command.c	\
 			$(COM_DIR)/parser/my_access.c		\
@@ -41,6 +46,7 @@ SRC_OP		=	$(OP_DIR)/semicolon.c			\
 			$(OP_DIR)/right_and_redirection.c	\
 			$(OP_DIR)/left_dbl_redirection.c	\
 			$(OP_DIR)/left_redirection.c		\
+			$(OP_DIR)/job_and.c			\
 			$(OP_DIR)/error_patterns.c
 
 SRC_BUILT	=	$(BUILT_DIR)/builtin_exit.c		\
@@ -50,7 +56,25 @@ SRC_BUILT	=	$(BUILT_DIR)/builtin_exit.c		\
 			$(BUILT_DIR)/builtin_cd.c		\
 			$(BUILT_DIR)/builtin_pwd.c              \
 			$(BUILT_DIR)/builtin_echo.c             \
+<<<<<<< HEAD
 			$(BUILT_DIR)/builtin_echo_opts.c        
+=======
+			$(BUILT_DIR)/builtin_jobs.c		\
+			$(BUILT_DIR)/builtin_fg.c		\
+			$(BUILT_DIR)/builtin_alias.c		\
+			$(BUILT_DIR)/builtin_unalias.c		\
+			$(BUILT_DIR)/builtin_true.c		\
+			$(BUILT_DIR)/builtin_false.c
+
+SRC_ALIAS	=	$(ALIAS_DIR)/set_alias.c	\
+			$(ALIAS_DIR)/find_alias.c	\
+			$(ALIAS_DIR)/show_alias.c	\
+			$(ALIAS_DIR)/del_alias.c
+
+SRC_JOB		=	$(JOB_DIR)/job_add.c	\
+			$(JOB_DIR)/job_pop.c	\
+			$(JOB_DIR)/job_del.c
+>>>>>>> cc738caeb244116395c07c4789095d65efe2e979
 
 SRC		=	src/main.c		\
 			src/init.c		\
@@ -60,7 +84,9 @@ SRC		=	src/main.c		\
 OBJ		=	$(SRC:.c=.o)		\
 			$(SRC_COM:.c=.o)	\
 			$(SRC_OP:.c=.o)		\
-			$(SRC_BUILT:.c=.o)
+			$(SRC_BUILT:.c=.o)	\
+			$(SRC_ALIAS:.c=.o)	\
+			$(SRC_JOB:.c=.o)
 
 CPPFLAGS	+=	-I include
 

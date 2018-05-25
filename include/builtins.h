@@ -38,6 +38,25 @@ void builtin_pwd(shell_t *mysh, char **command);
 void builtin_echo(shell_t *mysh, char **command);
 char *rewrite_arg(char *arg, int *opt_l);
 
+//builtin_jobs.c
+void builtin_jobs(shell_t *mysh, char **command);
+
+//builtin_fg.c
+void builtin_fg(shell_t *mysh, char **command);
+
+//builtin_alias.c
+void set_alias(shell_t *mysh, const char *name, const char *value);
+void builtin_alias(shell_t *mysh, char **command);
+
+//builtin_unalias.c
+void builtin_unalias(shell_t *mysh, char **command);
+
+//builtin_true.c
+void builtin_true(shell_t *mysh, char **command);
+
+//builtin_false.c
+void builtin_false(shell_t *mysh, char **command);
+
 /* CONSTANTS */
 static const builtin_t BUILTINS[] = {
 	{"exit", builtin_exit},
@@ -46,10 +65,16 @@ static const builtin_t BUILTINS[] = {
 	{"unsetenv", builtin_unsetenv},
 	{"cd", builtin_cd},
 	{"pwd", builtin_pwd},
-	{"echo", builtin_echo}
+	{"echo", builtin_echo},
+	{"jobs", builtin_jobs},
+	{"fg", builtin_fg},
+	{"alias", builtin_alias},
+	{"unalias", builtin_unalias},
+	{"true", builtin_true},
+	{"false", builtin_false}
 };
 
-static const int NB_BUILTINS = 7;
+static const int NB_BUILTINS = 13;
 
 static const char ECHO_SEQS[] = "abcefnrtv";
 static const int NB_ECHO_SEQS = 8;
@@ -85,5 +110,13 @@ printf("%s: Not a directory.\n", name)
 puts("pwd: too many arguments")
 #define ERROR_PWD_BAD_OPTION(opt)		\
 printf("pwd: bad option: %s\n", opt)
+
+//fg
+#define ERROR_FG_NO_JOBS		\
+puts("fg: no current job")
+
+//unalias
+#define ERROR_UNALIAS_TOO_FEW_ARG		\
+puts("unalias: Too few arguments")
 
 #endif

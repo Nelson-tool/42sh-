@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <unistd.h>
 #include <string.h>
 #include <stdbool.h>
 #include "shell.h"
@@ -30,23 +31,27 @@ static void echo(char *arg, int *opt_l)
 	result = rewrite_arg(arg, opt_l);
 	if (result == NULL)
 		return;
-	printf(result);
+	dprintf(STDOUT_FILENO, result);
 	free(result);
 }
 
 void builtin_echo(UNUSED shell_t *mysh, char **command)
 {
-	int opt_l[NB_ECHO_SEQS + 1];
+	int opt_l[NB_ECHO_SEQS];
 	int i = 0;
 
+<<<<<<< HEAD
 	for (int i = 0 ; i < NB_ECHO_SEQS ; i++)
 		opt_l[i] = 0;	
 	memset(opt_l, 0, NB_ECHO_SEQS + 1);
+=======
+	memset(opt_l, 0, NB_ECHO_SEQS * sizeof(int));
+>>>>>>> cc738caeb244116395c07c4789095d65efe2e979
 	for (i = 1 ; command[i] != NULL ; i++) {
 		echo(command[i], opt_l);
 		if (command[i + 1] != NULL)
-			printf(" ");
+			dprintf(STDOUT_FILENO, " ");
 	}
 	if (opt_l[2] != 1)
-		printf("\n");
+		dprintf(STDOUT_FILENO, "\n");
 }

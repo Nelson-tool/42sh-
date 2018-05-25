@@ -38,6 +38,6 @@ void my_exec(shell_t *mysh, char *path, char **command)
 		exit(1);
 	}
 	waitpid(child_pid, &mysh->exit_status, 0);
-	mysh->exit_status %= 128;
+	mysh->exit_status %= 256;
 	print_error_signal(mysh->exit_status);
 }

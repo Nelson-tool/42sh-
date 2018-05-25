@@ -10,7 +10,7 @@
 
 /* PROTOTYPES */
 //init.c
-void init_shell(shell_t *shell, int ac, char **av, char **env);
+void init_shell(shell_t *mysh, char **av, char **env);
 
 /* CONSTANT */
 static const char CONF_FILE[] = ".42shrc";

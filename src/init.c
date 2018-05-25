@@ -17,11 +17,9 @@ void sigint_hdl(UNUSED int signum)
 {
 	int status = 0;
 
-	if (waitpid(-1, &status, WNOHANG) != -1) {
-		putchar('\n');
-		if (WIFSIGNALED(status))
-			display_prompt();
-	}
+	putchar('\n');
+	if (waitpid(-1, &status, WNOHANG) == -1)
+		display_prompt(1);
 }
 
 static void init_signal(void)
@@ -47,7 +45,7 @@ static node_t *get_config_command(shell_t *mysh, FILE *conf)
 	}
 	if (line[byte_read - 1] == '\n')
 		line[byte_read - 1] = '\0';
-	tree = parse_line(line);
+	tree = parse_line(line, mysh);
 	free(line);
 	if (tree == NULL) {
 		mysh->exit_status = 1;
@@ -56,40 +54,42 @@ static node_t *get_config_command(shell_t *mysh, FILE *conf)
 	return (tree);
 }
 
-static void exec_config_file(shell_t *shell)
+static void exec_config_file(shell_t *mysh)
 {
 	FILE *conf = fopen(CONF_FILE, "r");
 	node_t *tree = NULL;
 
 	if (conf == NULL)
 		return;
-	while (!shell->stop) {
-		tree = get_config_command(shell, conf);
+	while (!mysh->stop) {
+		tree = get_config_command(mysh, conf);
 		if (tree != NULL) {
-			exec_tree(shell, tree);
+			exec_tree(mysh, tree);
 			del_tree(tree);
 		}
 	}
-	shell->stop = false;
+	mysh->stop = false;
 	fclose(conf);
 }
 
-void init_shell(shell_t *shell, int ac, char **av, char **env)
+void init_shell(shell_t *mysh, char **av, char **env)
 {
 	node_t *tree = NULL;
 
-	shell->env = env_dup(env);
-	if (shell->env && get_pos_env(shell->env, "PATH") == -1)
-		builtin_setenv(shell, DEFAULT_PATH);
-	shell->tty = isatty(STDIN_FILENO);
-	if (ac == 2 && strcmp(av[1], "-c") == 0) {
+	mysh->env = env_dup(env);
+	if (mysh->env && get_pos_env(mysh->env, "PATH") == -1)
+		builtin_setenv(mysh, DEFAULT_PATH);
+	mysh->tty = isatty(STDIN_FILENO);
+	for (int i = 0 ; DEF_ALIASES_NAMES[i] ; ++i)
+		set_alias(mysh, DEF_ALIASES_NAMES[i], DEF_ALIASES_VAL[i]);
+	if (av[1] != NULL && strcmp(av[1], "-c") == 0) {
 		if (av[2] != NULL) {
-			tree = parse_line(av[2]);
-			exec_tree(shell, tree);
+			tree = parse_line(av[2], mysh);
+			exec_tree(mysh, tree);
 			del_tree(tree);
 		}
-		shell->stop = true;
+		mysh->stop = true;
 	} else
-		exec_config_file(shell);
+		exec_config_file(mysh);
 	init_signal();
 }

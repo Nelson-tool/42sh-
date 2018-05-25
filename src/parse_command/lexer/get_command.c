@@ -19,14 +19,14 @@ static void cut_comment(char *str)
 		*com = '\0';
 }
 
-node_t *parse_line(char *line)
+node_t *parse_line(char *line, shell_t *mysh)
 {
 	node_t *tree = NULL;
 
 	cut_comment(line);
 	if (!check_quotes(line))
 		return (NULL);
-	tree = ll_lexer(line);
+	tree = ll_lexer(line, mysh);
 	return (tree);
 }
 
@@ -45,7 +45,7 @@ node_t *get_command(shell_t *mysh)
 		return (NULL);
 	}
 	line[byte_read - 1] = '\0';
-	tree = parse_line(line);
+	tree = parse_line(line, mysh);
 	free(line);
 	if (tree == NULL) {
 		mysh->exit_status = 1;
