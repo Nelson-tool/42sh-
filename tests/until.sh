@@ -7,7 +7,7 @@ else
 fi
 
 for i in `seq 1 $limit`; do
-	#echo $i
+	echo $i
 	sleep 1
 done
 
