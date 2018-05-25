@@ -23,32 +23,30 @@ void job_del_all(job_t *list)
 	job_t *to_del;
 
 	while (list) {
-		printf("%d\n", list->pid);
 		to_del = list;
 		list = list->next;
 		job_free(to_del);
 	}
 }
 
-void job_cleanup(job_t **job)
+void job_cleanup(job_list_t *jobs)
 {
-	job_t *prev = NULL;
-	job_t *cur = *job;
+	job_t *prev;
+	job_t *cur = jobs->first;
 
 	while (cur) {
 		if (waitpid(cur->pid, NULL, WNOHANG)) {
-			if (prev == NULL) {
-				*job = cur->next;
-				job_free(cur);
-				cur = *job;
+			if (cur->prev == NULL) {
+				job_pop(jobs, cur);
+				cur = jobs->first;
 			} else {
-				prev->next = cur->next;
-				job_free(cur);
+				prev = cur->prev;
+				job_pop(jobs, cur);
 				cur = prev->next;
 			}
-		} else {
-			prev = cur;
+		} else
 			cur = cur->next;
-		}
 	}
+	if (jobs->first == NULL)
+		jobs->last = NULL;
 }

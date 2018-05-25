@@ -64,20 +64,20 @@ static job_t *job_create(pid_t pid, node_t *tree)
 	return (job);
 }
 
-job_t *job_add(job_t **list, pid_t pid, node_t *tree)
+job_t *job_add(job_list_t *jobs, pid_t pid, node_t *tree)
 {
 	job_t *new_elem = job_create(pid, tree);
-	job_t *cur;
 
 	if (new_elem == NULL)
 		return (NULL);
-	if (*list == NULL)
-		*list = new_elem;
-	else {
-		cur = *list;
-		while (cur->next)
-			cur = cur->next;
-		cur->next = new_elem;
+	if (jobs->last == NULL) {
+		jobs->first = new_elem;
+		jobs->last = new_elem;
+	} else {
+		jobs->last->next = new_elem;
+		new_elem->prev = jobs->last;
+		jobs->last = new_elem;
 	}
-	return (*list);
+	++jobs->count;
+	return (new_elem);
 }

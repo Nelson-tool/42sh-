@@ -14,8 +14,7 @@ static void cleanup_shell(shell_t *mysh)
 {
 	if (mysh->env != NULL)
 		my_free_array((void **) mysh->env);
-	if (mysh->jobs != NULL)
-		job_free(mysh->jobs);
+	job_list_del(mysh->jobs);
 	if (mysh->alias != NULL)
 		del_alias_tree(mysh->alias);
 }

@@ -7,50 +7,51 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include <stdbool.h>
 #include "my.h"
 #include "shell.h"
 
-pid_t job_pop_back(job_t **list)
+pid_t job_pop(job_list_t *jobs, job_t *job)
 {
-	job_t *prev = NULL;
-	job_t *cur = *list;
-	pid_t pid;
+	int pid;
 
-	if (*list == NULL)
+	if (job == NULL)
 		return (0);
-	while (cur->next) {
-		prev = cur;
-		cur = cur->next;
-	}
-	if (prev == NULL)
-		*list = NULL;
+	pid = job->pid;
+	if (job->prev == NULL)
+		jobs->first = job->next;
 	else
-		prev->next = NULL;
-	pid = cur->pid;
-	job_free(cur);
+		job->prev->next = job->next;
+	if (job->next == NULL)
+		jobs->last = job->prev;
+	else
+		job->next->prev = job->prev;
+	job_free(job);
+	--jobs->count;
 	return (pid);
 }
 
-pid_t job_pop(job_t **list, int pos)
+pid_t job_pop_pos(job_list_t *jobs, int pos)
 {
-	job_t *prev = NULL;
-	job_t *cur = *list;
-	pid_t pid;
+	job_t *cur = jobs->first;
 
-	if (*list == NULL)
+	if (pos <= 0 || pos > jobs->count)
 		return (0);
-	for (int i = 0 ; i < pos ; ++i) {
-		if (cur->next == NULL)
-			return (0);
-		prev = cur;
+	for (int i = 1 ; i < pos && cur ; ++i)
 		cur = cur->next;
+	return (job_pop(jobs, cur));
+}
+
+pid_t job_pop_name(job_list_t *jobs, char *name)
+{
+	job_t *cur = jobs->last;
+	int len_name = strlen(name);
+
+	while (cur) {
+		if (strncmp(cur->command, name, len_name) == 0)
+			break;
+		cur = cur->prev;
 	}
-	if (prev == NULL)
-		*list = cur->next;
-	else
-		prev->next = cur->next;
-	pid = cur->pid;
-	job_free(cur);
-	return (pid);
+	return (job_pop(jobs, cur));
 }

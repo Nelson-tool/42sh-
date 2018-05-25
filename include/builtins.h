@@ -113,6 +113,10 @@ printf("pwd: bad option: %s\n", opt)
 //fg
 #define ERROR_FG_NO_JOBS		\
 puts("fg: no current job")
+#define ERROR_FG_NO_SUCH_JOB(job)		\
+printf("fg: %s: no such job\n", job)
+#define ERROR_FG_JOB_NOT_FOUND(job)		\
+printf("fg: job not found: %s\n", job)
 
 //unalias
 #define ERROR_UNALIAS_TOO_FEW_ARG		\

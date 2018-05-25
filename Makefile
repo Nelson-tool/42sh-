@@ -70,7 +70,8 @@ SRC_ALIAS	=	$(ALIAS_DIR)/set_alias.c	\
 
 SRC_JOB		=	$(JOB_DIR)/job_add.c	\
 			$(JOB_DIR)/job_pop.c	\
-			$(JOB_DIR)/job_del.c
+			$(JOB_DIR)/job_del.c	\
+			$(JOB_DIR)/job_list.c
 
 SRC		=	src/main.c		\
 			src/init.c		\

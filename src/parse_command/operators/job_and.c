@@ -25,8 +25,7 @@ bool exec_job_and(shell_t *mysh, node_t *left, node_t *right)
 			tcsetpgrp(STDIN_FILENO, getppid());
 		exit(mysh->exit_status);
 	}
-	printf("add\n");
-	job_add(&mysh->jobs, child_pid, left);
+	job_add(mysh->jobs, child_pid, left);
 	exec_tree(mysh, right);
 	return (true);
 }
