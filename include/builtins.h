@@ -36,6 +36,7 @@ void builtin_pwd(shell_t *mysh, char **command);
 
 //builtin_echo.c
 void builtin_echo(shell_t *mysh, char **command);
+char *rewrite_arg(char *arg, int *opt_l);
 
 //builtin_jobs.c
 void builtin_jobs(shell_t *mysh, char **command);
@@ -44,7 +45,6 @@ void builtin_jobs(shell_t *mysh, char **command);
 void builtin_fg(shell_t *mysh, char **command);
 
 //builtin_alias.c
-void set_alias(shell_t *mysh, const char *name, const char *value);
 void builtin_alias(shell_t *mysh, char **command);
 
 //builtin_unalias.c
