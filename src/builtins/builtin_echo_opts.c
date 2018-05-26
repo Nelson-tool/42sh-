@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2018
 ** 42sh
 ** File description:
-** builtin_echo_opts.c
+** Options of builtin echo.
 */
 
 #include <stdbool.h>

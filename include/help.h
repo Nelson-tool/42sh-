@@ -172,6 +172,7 @@ static const char HELP_EXIT[] =
 	"exit: exit [n] Exit the shell.\n"
 	"Exits the shell with a status of N. If N is omitted, the exit status \n"
 	"\tis that of the last command executed.\n";
+
 static const char HELP_FG[] =
 	"fg: fg [job_spec] \n"
 	"\tMove job to the foreground.\n"
