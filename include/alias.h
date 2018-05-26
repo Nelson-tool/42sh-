@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2018
 ** 42sh
 ** File description:
-** .h for the alias gestion
+** Header for aliases.
 */
 
 #ifndef ALIAS_H

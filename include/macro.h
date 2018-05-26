@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2017
+** EPITECH PROJECT, 2018
 ** 42sh
 ** File description:
 ** Macros header file.

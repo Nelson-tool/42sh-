@@ -12,13 +12,12 @@
 #include <stdbool.h>
 #include "shell.h"
 
-static int check_param(char *arg, int *opt_l, int j)
+static void check_param(char *arg, int *opt_l, int j)
 {
 	for (int i = 0 ; i < NB_ECHO_SEQS ; ++i) {
 		if (arg[j] == '\\' && arg[j + 1] == ECHO_SEQS[i])
-			opt_l[i]++;
+			++opt_l[i];
 	}
-	return (0);
 }
 
 static void echo(char *arg, int *opt_l)
@@ -35,17 +34,17 @@ static void echo(char *arg, int *opt_l)
 	free(result);
 }
 
-void builtin_echo(UNUSED shell_t *mysh, char **command)
+void builtin_echo(shell_t *mysh, char **command)
 {
 	int opt_l[NB_ECHO_SEQS];
-	int i = 0;
 
 	memset(opt_l, 0, NB_ECHO_SEQS * sizeof(int));
-	for (i = 1 ; command[i] != NULL ; i++) {
+	for (int i = 1 ; command[i] ; i++) {
 		echo(command[i], opt_l);
 		if (command[i + 1] != NULL)
 			dprintf(STDOUT_FILENO, " ");
 	}
 	if (opt_l[2] != 1)
 		dprintf(STDOUT_FILENO, "\n");
+	mysh->exit_status = 0;
 }

@@ -1,8 +1,8 @@
 ##
-## EPITECH PROJECT, 2017
+## EPITECH PROJECT, 2018
 ## 42sh
 ## File description:
-## Makefile for 42sh
+## Makefile for 42sh.
 ##
 
 CC		=	gcc
@@ -64,7 +64,8 @@ SRC_BUILT	=	$(BUILT_DIR)/builtin_exit.c		\
 			$(BUILT_DIR)/builtin_unalias.c		\
 			$(BUILT_DIR)/builtin_true.c		\
 			$(BUILT_DIR)/builtin_false.c		\
-			$(BUILT_DIR)/builtin_repeat.c
+			$(BUILT_DIR)/builtin_repeat.c		\
+			$(BUILT_DIR)/builtin_builtin.c
 
 SRC_ALIAS	=	$(ALIAS_DIR)/set_alias.c	\
 			$(ALIAS_DIR)/find_alias.c	\

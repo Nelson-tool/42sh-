@@ -62,6 +62,9 @@ void builtin_help(shell_t *mysh, char **command);
 //builtin_repeat.c
 void builtin_repeat(shell_t *mysh, char **command);
 
+//builtin_builtin.c
+void builtin_builtin(shell_t *mysh, char **command);
+
 /* CONSTANTS */
 static const builtin_t BUILTINS[] = {
 	{"exit", builtin_exit},
@@ -78,10 +81,11 @@ static const builtin_t BUILTINS[] = {
 	{"unalias", builtin_unalias},
 	{"true", builtin_true},
 	{"false", builtin_false},
-	{"repeat", builtin_repeat}
+	{"repeat", builtin_repeat},
+	{"builtin", builtin_builtin}
 };
 
-static const int NB_BUILTINS = 15;
+static const int NB_BUILTINS = 16;
 
 static const char ECHO_SEQS[] = "abcefnrtv";
 static const int NB_ECHO_SEQS = 8;
@@ -141,5 +145,9 @@ puts("unalias: Too few arguments")
 puts("repeat: Too few arguments.")
 #define ERROR_REPEAT_BAD_NB		\
 puts("repeat: Badly formed number.")
+
+//builtin
+#define ERROR_BUILTIN_NOT_BUILTIN(name)		\
+printf("42sh: builtin: %s: not a shell builtin\n", name);
 
 #endif

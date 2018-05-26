@@ -91,4 +91,9 @@ static const error_signal_t ERRORS_SIGNAL[] = {
 /* MACRO */
 #define ESCAPED(str, i) (i != 0 && str[i - 1] == '\\')
 
+
+/* ERRORS */
+#define ERROR_UNMATCHED_QUOTE(quote)		\
+printf("Unmatched '%c'.\n", quote)
+
 #endif

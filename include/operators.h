@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2017
+** EPITECH PROJECT, 2018
 ** 42sh
 ** File description:
 ** Operators header.
@@ -7,15 +7,6 @@
 
 #ifndef OPERATORS_H
 #define OPERATORS_H
-
-/* WHAT TO CHANGE WHEN CREATING A NEW OPERATOR ?
-** 1 - token enum
-** 2 - TOKENS_PRIOR
-** 3 - TOKENS
-** 4 - OP_ERROR_PATTERNS
-** 5 - TOKENS_EXEC
-** 6 - Tests to check if it works :(
-*/
 
 /* INCLUDE */
 #include <fcntl.h>
@@ -219,8 +210,6 @@ static bool (*const TOKENS_EXEC[])
 
 
 /* ERRORS */
-#define ERROR_UNMATCHED_QUOTE(quote)		\
-printf("Unmatched '%c'.\n", quote)
 #define ERROR_NULL_COMMAND		\
 printf("Invalid null command.\n")
 #define ERROR_AMBIGUOUS_OUTPUT		\

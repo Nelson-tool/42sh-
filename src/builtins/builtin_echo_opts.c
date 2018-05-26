@@ -11,18 +11,18 @@
 #include <stdlib.h>
 #include "shell.h"
 
-static int v_or_t(char *result, int j, int nbr, int i)
+static int v_or_t(char *result, char opt, int i, int j)
 {
-	if (nbr == 'v') {
+	if (opt == 'v' || opt == 'f') {
 		result[j] = '\n';
-		j++;
-		for (int g = 0 ; g < i ; g++) {
+		++j;
+		for (int g = 0 ; g < i ; ++g) {
 			result[j] = ' ';
-			j++;
+			++j;
 		}
 	} else {
 		result[j] = '\t';
-		j++;
+		++j;
 	}
 	return (j);
 }
@@ -37,12 +37,12 @@ static void check_opt(char *arg, char *result, int *opt_l)
 		if (arg[i] == '\\') {
 			switch (arg[i + 1]) {
 			case 'f': case 'v': case 't':
-				j = v_or_t(result, j, arg[i + 1], i);
-				i++;
+				j = v_or_t(result, arg[i + 1], i, j);
+				++i;
 				break;
 			case 'r':
 				opt_l[6] = 0;
-				i++;
+				++i;
 				break;
 			}
 			if (arg[i] == '\\' && index(ECHO_SEQS, arg[i + 1])) {
