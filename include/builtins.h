@@ -136,4 +136,10 @@ printf("fg: job not found: %s\n", job)
 #define ERROR_UNALIAS_TOO_FEW_ARG		\
 puts("unalias: Too few arguments")
 
+//repeat
+#define ERROR_REPEAT_TOO_FEW_ARG		\
+puts("repeat: Too few arguments.")
+#define ERROR_REPEAT_BAD_NB		\
+puts("repeat: Badly formed number.")
+
 #endif

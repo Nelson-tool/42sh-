@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2018
 ** 42sh
 ** File description:
-** command for help
+** Displays help about builtins.
 */
 
 #include <stdlib.h>

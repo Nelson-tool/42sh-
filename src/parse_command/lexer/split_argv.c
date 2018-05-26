@@ -21,7 +21,7 @@ static int get_len_word(const char *str)
 			quote = str[len];
 			do {
 				++len;
-			} while (str[len] != quote || ESCAPED(str, len));
+			} while (str[len] != quote);
 		}
 		++len;
 	}
@@ -33,13 +33,8 @@ static int dup_arg_in_quotes(const char *str, char *arg, int *arg_len)
 	const char quote = str[0];
 	int i = 1;
 
-	while (str[i] != quote) {
-		if (str[i] == '\\' && str[i + 1] == quote) {
-			arg[(*arg_len)++] = str[++i];
-			++i;
-		} else
-			arg[(*arg_len)++] = str[i++];
-	}
+	while (str[i] != quote)
+		arg[(*arg_len)++] = str[i++];
 	return (i);
 }
 

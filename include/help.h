@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2018
 ** help
 ** File description:
-** help for help
+** Contains the help messages.
 */
 
 #ifndef HELP_H

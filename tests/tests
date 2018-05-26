@@ -182,3 +182,22 @@ TESTS=
   echo ';;;;;;'
   echo '; ; ;  ; ;ls;;;; ;ls;;; ls; ;; ls;ls'
 [915-END]
+
+[916]
+NAME="quotes"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'echo ""'
+  echo 'echo "\""'
+  echo '"'
+  echo 'echo "abc"'
+[916-END]
+
+[917]
+NAME="alias"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'alias ls "ls --color=auto" ; alias ls'
+[917-END]

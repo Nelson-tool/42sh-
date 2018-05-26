@@ -54,13 +54,13 @@ static node_t *get_config_command(shell_t *mysh, FILE *conf)
 	return (tree);
 }
 
-static void exec_config_file(shell_t *mysh)
+bool interpret_file(shell_t *mysh, const char *file)
 {
-	FILE *conf = fopen(CONF_FILE, "r");
+	FILE *conf = fopen(file, "r");
 	node_t *tree = NULL;
 
 	if (conf == NULL)
-		return;
+		return (false);
 	while (!mysh->stop) {
 		tree = get_config_command(mysh, conf);
 		if (tree != NULL) {
@@ -69,13 +69,13 @@ static void exec_config_file(shell_t *mysh)
 		}
 	}
 	mysh->stop = false;
-	fclose(conf);
+	if (fclose(conf) == EOF)
+		perror("fclose");
+	return (true);
 }
 
 void init_shell(shell_t *mysh, char **av, char **env)
 {
-	node_t *tree = NULL;
-
 	mysh->env = env_dup(env);
 	if (mysh->env && get_pos_env(mysh->env, "PATH") == -1)
 		builtin_setenv(mysh, DEFAULT_PATH);
@@ -83,14 +83,9 @@ void init_shell(shell_t *mysh, char **av, char **env)
 	mysh->jobs = job_list_init();
 	for (int i = 0 ; DEF_ALIASES_NAMES[i] ; ++i)
 		set_alias(mysh, DEF_ALIASES_NAMES[i], DEF_ALIASES_VAL[i]);
-	if (av[1] != NULL && strcmp(av[1], "-c") == 0) {
-		if (av[2] != NULL) {
-			tree = parse_line(av[2], mysh);
-			exec_tree(mysh, tree);
-			del_tree(tree);
-		}
+	if (parse_arg(mysh, av))
 		mysh->stop = true;
-	} else
-		exec_config_file(mysh);
+	else
+		interpret_file(mysh, CONF_FILE);
 	init_signal();
 }

@@ -78,6 +78,7 @@ SRC_JOB		=	$(JOB_DIR)/job_add.c	\
 
 SRC		=	src/main.c		\
 			src/init.c		\
+			src/parse_arg.c		\
 			src/env.c		\
 			src/shell.c
 

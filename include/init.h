@@ -10,7 +10,11 @@
 
 /* PROTOTYPES */
 //init.c
+bool interpret_file(shell_t *mysh, const char *file);
 void init_shell(shell_t *mysh, char **av, char **env);
+
+//parse_arg.c
+bool parse_arg(shell_t *mysh, char **av);
 
 /* CONSTANT */
 static const char CONF_FILE[] = ".42shrc";

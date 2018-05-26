@@ -34,8 +34,7 @@ bool check_quotes(char *str)
 	while (result && str[i]) {
 		i = get_quote(str, &quote, i);
 		if (quote) {
-			while ((str[i] != quote || str[i - 1] == '\\') &&
-				str[i])
+			while (str[i] != quote && str[i])
 				++i;
 			if (!str[i]) {
 				ERROR_UNMATCHED_QUOTE(quote);
