@@ -13,6 +13,8 @@
 
 void builtin_help(UNUSED shell_t *mysh, char **command)
 {
+	int i = 0;
+
 	if (command[1] == NULL) {
 		printf(HELP);
 		return;
