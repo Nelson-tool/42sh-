@@ -8,9 +8,6 @@
 #ifndef HELP_H
 #define HELP_H
 
-static const char HELP_S_ECHO[] = " echo: echo [-neE] [arg ...]";
-static const char HELP_S_HELP[] = " help: help [-dms] [pattern ...]";
-
 static const char HELP[] =
 "42sh, version 42.42.42(42)-release (x86_64-redhat-linux-42sh)\n"
 "These shell commands are defined internally.  Type `help' to see this list.\n"

@@ -13,7 +13,7 @@
 #include "my.h"
 #include "shell.h"
 
-static void get_input_to_redirect(const char *stop, int *fds)
+static _Noreturn void get_input_to_redirect(const char *stop, int *fds)
 {
 	char *line = NULL;
 
@@ -23,7 +23,7 @@ static void get_input_to_redirect(const char *stop, int *fds)
 			dprintf(fds[1], "%s\n", line);
 			free(line);
 		}
-		write(STDOUT_FILENO, "? ", 2);
+		dprintf(STDOUT_FILENO, "? ");
 		line = get_next_line(STDIN_FILENO);
 	} while (line != NULL && strcmp(line, stop));
 	exit(0);

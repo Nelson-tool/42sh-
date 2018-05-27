@@ -11,7 +11,7 @@
 #include "my.h"
 #include "shell.h"
 
-static void redir_output(shell_t *mysh, node_t *left, int *pipefd)
+static _Noreturn void redir_output(shell_t *mysh, node_t *left, int *pipefd)
 {
 	int save_stdout = dup(STDOUT_FILENO);
 

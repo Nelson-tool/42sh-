@@ -87,10 +87,9 @@ static const builtin_t BUILTINS[] = {
 
 static const int NB_BUILTINS = 16;
 
-static const char ECHO_SEQS[] = "abefnrtv";
+static const char ECHO_SEQS[] = "abefnrtv\\";
 static const char ECHO_SEQS_SWITCH[] =
 {'\a', '\b', '\e', '\f', '\n', '\r', '\t', '\v', '\\'};
-static const int NB_ECHO_SEQS = 8;
 
 
 /* ERRORS */
