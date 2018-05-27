@@ -201,3 +201,11 @@ CLEAN=""
 TESTS=
   echo 'alias ls "ls --color=auto" ; alias ls'
 [917-END]
+
+[918]
+NAME="echo"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'echo "abc\t\tdef\vghi\fjkl\nmno\bpqr"'
+[918-END]
