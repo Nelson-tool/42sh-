@@ -23,9 +23,7 @@ bool parse_arg(shell_t *mysh, char **av)
 			exec_tree(mysh, tree);
 			del_tree(tree);
 		}
-	} else {
-		if (!interpret_file(mysh, av[1]))
-			ERROR_NO_FILE(av[1]);
-	}
+	} else if (!interpret_file(mysh, av[1]))
+		ERROR_NO_FILE(av[1]);
 	return (true);
 }

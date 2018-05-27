@@ -9,14 +9,14 @@
 #define HELP_H
 
 static const char HELP[] =
-"42sh, version 42.42.42(42)-release (x86_64-redhat-linux-42sh)\n"
+"42sh, version 42.42.42(42)-release (x86_64-tek-linux-42sh)\n"
 "These shell commands are defined internally.  Type `help' to see this list.\n"
 "Type `help name' to find out more about the function `name'.\n"
 "Use `man -k' to find out more about commands not in this list. \n\n"
-"alias[name [value]]\n"
+"alias [name [value]]\n"
 "builtin [shell-builtin [arg ...]]\n"
 "cd [dir]\n"
-"echo [-neE] [arg ...]\n"
+"echo [arg ...]\n"
 "env\n"
 "exit [n]\n"
 "false\n"

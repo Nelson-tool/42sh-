@@ -19,8 +19,7 @@ static int get_next_chunk(int fd, char *chunk)
 	if (size_mem != 0) {
 		strcpy(chunk, mem);
 		mem[0] = '\0';
-	}
-	else if (read(fd, chunk, READ_SIZE) <= 0)
+	} else if (read(fd, chunk, READ_SIZE) <= 0)
 		return (-1);
 	for (; chunk[size_chunk] != '\n' && chunk[size_chunk] ; ++size_chunk);
 	if (chunk[size_chunk] == '\n') {
