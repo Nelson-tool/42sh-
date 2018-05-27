@@ -31,7 +31,7 @@ static _Noreturn void redir_output(shell_t *mysh, node_t *left, int *pipefd)
 	exit(mysh->exit_status);
 }
 
-bool use_redirected_output(shell_t *mysh, node_t *right, int *pipefd)
+static bool use_redirected_output(shell_t *mysh, node_t *right, int *pipefd)
 {
 	int save_stdin = dup(STDIN_FILENO);
 

@@ -36,7 +36,6 @@ SRC_COM		=	$(COM_DIR)/tree.c			\
 SRC_OP		=	$(OP_DIR)/semicolon.c			\
 			$(OP_DIR)/and.c				\
 			$(OP_DIR)/or.c				\
-			$(OP_DIR)/pipe_and.c			\
 			$(OP_DIR)/pipe.c			\
 			$(OP_DIR)/right_dbl_redirection.c	\
 			$(OP_DIR)/right_err_dbl_redirection.c	\

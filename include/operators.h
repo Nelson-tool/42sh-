@@ -8,17 +8,12 @@
 #ifndef OPERATORS_H
 #define OPERATORS_H
 
-/* INCLUDE */
-#include <fcntl.h>
-
-
 /* TYPEDEFS */
 typedef enum {
 	SEMICOLON,
 	AND,
 	OR,
 	JOB_AND,
-	//PIPE_AND,
 	PIPE,
 	R_1_DBL_REDIR,
 	R_2_DBL_REDIR,
@@ -53,11 +48,7 @@ bool exec_and(shell_t *mysh, node_t *left, node_t *right);
 //or.c
 bool exec_or(shell_t *mysh, node_t *left, node_t *right);
 
-//pipe_and.c
-bool exec_pipe_and(shell_t *mysh, node_t *left, node_t *right);
-
 //pipe.c
-bool use_redirected_output(shell_t *mysh, node_t *right, int *pipefd);
 bool exec_pipe(shell_t *mysh, node_t *left, node_t *right);
 
 //right_err_dbl_redirection.c
@@ -106,7 +97,6 @@ static const char * const TK_UNARY[] = {
 };
 
 static const char * const TK_PIPE_RIGHT_REDIR[] = {
-	//"|&",
 	"|",
 	"1>>",
 	"2>>",
@@ -139,7 +129,6 @@ static const char * const TOKENS[] = {
 	"&&",
 	"||",
 	"&",
-	//"|&",
 	"|",
 	"1>>",
 	"2>>",
@@ -159,7 +148,6 @@ static const error_pattern_op_t OP_ERRORS_PATTERNS[] = {
 	ERR_PAT_SEMICOLON,
 	ERR_PAT_SEMICOLON,
 	ERR_PAT_SEMICOLON,
-	//ERR_PAT_PIPE,
 	ERR_PAT_PIPE,
 	ERR_PAT_RIGHT_REDIR,
 	ERR_PAT_RIGHT_REDIR,
@@ -194,7 +182,6 @@ static bool (*const TOKENS_EXEC[])
 	exec_and,
 	exec_or,
 	exec_job_and,
-	//exec_pipe_and,
 	exec_pipe,
 	exec_r_dbl_redir,
 	exec_r_err_dbl_redir,
