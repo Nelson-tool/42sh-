@@ -26,6 +26,8 @@ static _Noreturn void get_input_to_redirect(const char *stop, int *fds)
 		dprintf(STDOUT_FILENO, "? ");
 		line = get_next_line(STDIN_FILENO);
 	} while (line != NULL && strcmp(line, stop));
+	if (line != NULL)
+		free(line);
 	exit(0);
 }
 

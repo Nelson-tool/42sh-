@@ -24,7 +24,7 @@ void display_prompt(int status)
 	dir = rindex(path, '/');
 	if (dir != path)
 		++dir;
-	dprintf(STDOUT_FILENO, "%d -> (42sh %s)$ ", status, dir);
+	dprintf(STDOUT_FILENO, "%d -> (42sh %s)", status, dir);
 }
 
 void shell(shell_t *mysh)

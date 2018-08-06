@@ -92,7 +92,7 @@ CPPFLAGS	+=	-I include
 
 CFLAGS		+=	-Wall -Wextra
 
-LDFLAGS		+=	-Llib/ -lmy
+LDFLAGS		+=	-lreadline -Llib/ -lmy
 
 NAME		=	42sh
 
