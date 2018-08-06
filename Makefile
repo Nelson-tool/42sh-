@@ -5,10 +5,6 @@
 ## Makefile for 42sh.
 ##
 
-CC		=	gcc
-
-RM		=	rm
-
 COM_DIR		=	src/parse_command
 
 OP_DIR		=	src/parse_command/operators
@@ -98,26 +94,18 @@ NAME		=	42sh
 
 all	:	$(NAME)
 
-$(NAME)	:	lib	$(OBJ)
-		$(CC) -o $(NAME) $(OBJ) $(LDFLAGS)
+$(NAME)	:	$(OBJ)
+		$(CC) -o $(NAME) $(OBJ) $(LDFLAGS) && cp $(NAME) tests
 
-lib	:	lib/my/Makefile
-		make -C lib/my
-
-tests_run:	lib
-		make -C tests/
-		./tests/units
+tests_run:	$(NAME)
+		(cd tests; ./tester.sh; $(RM) c)
 
 clean	:
-		$(RM) -f $(OBJ)
-		make clean -C lib/my
-		make clean -C tests
+		$(RM) $(OBJ)
 
 fclean	:	clean
-		$(RM) -f $(NAME)
-		make fclean -C lib/my
-		make fclean -C tests
+		$(RM) $(NAME)
 
 re	:	fclean	all
 
-.PHONY	:	all lib tests_run clean fclean re
+.PHONY	:	all tests_run clean fclean re
