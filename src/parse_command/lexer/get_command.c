@@ -35,7 +35,7 @@ node_t *parse_line(char *line, shell_t *mysh)
 
 node_t *get_command(shell_t *mysh)
 {
-	char *line = readline("$ ");
+	char *line = readline("");
 	node_t *tree = NULL;
 
 	if (line == NULL) {
