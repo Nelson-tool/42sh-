@@ -8,3 +8,7 @@ vgcore.*
 segfault
 memo.txt
 .42shrc
+
+# sublime-text
+*.sublime-project
+*.sublime-workspace
